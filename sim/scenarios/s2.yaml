@@ -1,0 +1,110 @@
+# S2. The stall nobody announced (spec 14, reactive, uncertainty, Tavily).
+# Robot A collects oxygen from the L2 east store and heads back down through lift_1. Lift_1
+# goes OFFLINE with fault E-17 (door-sensor fault, auto-recovers in ~2 min) just after Robot A
+# came up, so Robot A stalls at the L2 lift_1 lobby on its way down. Slack: 6 minutes.
+# Earlier, transport 4472 passed through lift_1 (evidence for the incident report).
+# Variant s2_e42: fault E-42 (technician required), no recovery: handover is right, not waiting.
+# FICTIONAL people and data.
+id: s2
+description: Oxygen robot stalls at lift_1 with fault E-17
+clock_start: "10:26:30"
+end_at: "10:42:00"
+robot_starts: {deliveryRobot/deliveryRobot_1: L1_sub_waiting_area_1, deliveryRobot/deliveryRobot_2: deliveryRobot_2_charger}
+
+events:
+  - at: "10:26:40"
+    record:
+      system: transport_system
+      request_id: "4472"
+      priority: High
+      origin_code: L2-W2A
+      destination_code: L1-ED
+      transport_mode: wheelchair
+      patient_ref: P-0R
+      status: Responding
+      status_at: "10:26:40"
+  - at: "10:28:30"
+    note: Alex's oxygen, from the east store this time
+    record:
+      system: delivery_requests
+      request_id: O2-S2
+      priority: Critical
+      item: oxygen
+      pickup_code: L2-O2E
+      dropoff_code: L1-W1A-12
+      needed_by: "10:40:30"
+      requested_by: staff-alex
+      patient_ref: P-0012
+      receiver: rohan-arm-1
+      status: Submitted
+      status_at: "10:28:30"
+
+robot_tasks:
+  - at: "10:28:35"
+    system: delivery_requests
+    request_id: O2-S2
+    fleet: deliveryRobot
+    robot: deliveryRobot_1
+    places: [L2_north_counter, L1_left_treatment_1]
+    due: "10:40:30"
+    receiver: rohan-arm-1
+
+porters:
+  - job: transport_system-4472
+    lift: lift_1
+    request_at: "10:28:55"
+    from_floor: L2
+    to_floor: L1
+    board_s: 20
+    alight_s: 20
+
+faults:
+  - lift: lift_1
+    at: "10:31:45"
+    mode: OFFLINE
+    code: E-17
+    recover_at: "10:33:45"   # E-17 auto-recovers in ~2 minutes
+
+ground_truth:
+  incident: {trigger: blocked_status, robot: deliveryRobot/deliveryRobot_1, lift: lift_1}
+  acceptable_plans:
+    - wait for lift_1 (E-17 auto-recovers in ~2 min; slack 6 min), hold others away, notify Alex
+  unacceptable:
+    - handover or reroute that delivers later than waiting would
+  baseline_a:
+    - kind: incident_opened
+      trigger: blocked_status
+      job: O2-S2
+    - kind: delivered_on_time
+      job: O2-S2
+      expect: true
+  baseline_b:   # deterministic Auspex: contains the fault, cannot tell E-17 from E-42
+    - kind: plan_applied
+      producer: fast_lane
+      action: close_lanes
+      segment: segment/lift_1
+      expect: true
+      why: playbook lift-out-of-service keeps robots out of the faulted lift; they replan
+    - kind: plan_applied
+      producer: fast_lane
+      action: open_lanes
+      segment: segment/lift_1
+      expect: true
+      why: lanes reopened when the facility feed reports lift_1 back in service
+    - kind: delivered_on_time
+      job: O2-S2
+      expect: null
+      why: measured; B reroutes instead of waiting the ~2 min an E-17 takes
+  baseline_c:   # Auspex with Nemotron: vendor evidence says E-17 clears in ~2 minutes
+    - kind: plan_applied
+      producer: agent
+      action: notify
+      none_of: [close_lanes, submit_task, cancel_task]
+      expect: true
+      why: wait for lift_1 (E-17 recovers by itself), others kept away, Alex told the ETA
+    - kind: delivered_on_time
+      job: O2-S2
+      expect: true
+    - kind: incident_report
+      expect: null
+      why: written by Nemotron Nano once the stall resolves, if the stall opened an incident

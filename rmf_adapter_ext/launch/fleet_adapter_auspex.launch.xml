@@ -1,0 +1,21 @@
+<?xml version='1.0' ?>
+<!--
+  One fleet: the rmf_demos fleet manager, and the Auspex-extended fleet adapter (sim time).
+  The adapter exits when Adapter.make cannot reach the RMF schedule node within its discovery
+  timeout (seen for deliveryRobot on 2026-10-26 while tinyRobot started fine), so launch
+  restarts it after 5 s. `python3 -u` keeps its prints in order with the ROS log.
+-->
+<launch>
+  <arg name="auspex_dir"/>
+  <arg name="config_file"/>
+  <arg name="nav_graph_file"/>
+  <arg name="server_uri"/>
+
+  <node pkg="rmf_demos_fleet_adapter" exec="fleet_manager"
+        args="--config_file $(var config_file)" output="both">
+    <param name="use_sim_time" value="true"/>
+  </node>
+
+  <executable cmd="python3 -u $(var auspex_dir)/auspex_fleet_adapter.py -c $(var config_file) -n $(var nav_graph_file) -sim --ros-args -p use_sim_time:=true -p server_uri:=$(var server_uri)"
+              output="both" respawn="true" respawn_delay="5.0"/>
+</launch>

@@ -1,0 +1,97 @@
+# M4 intake smoke test (not a demo scenario). Exercises: a transport job whose destination
+# exists only as free text, an oxygen delivery request with coded places, status changes,
+# an identical resend (idempotent), an out-of-order status (ignored), and bad records the
+# core must refuse. All names and identifiers are FICTIONAL.
+id: smoke
+description: Intake smoke test for the transport and delivery feeds
+clock_start: "10:20"
+events:
+  - at: "10:20"
+    note: Alex's oxygen for bed 12, coded pickup and dropoff
+    record:
+      system: delivery_requests
+      request_id: O2-0007
+      priority: Critical
+      item: oxygen
+      pickup_code: L2-O2
+      dropoff_code: L1-W1A-12
+      needed_by: "10:40"
+      requested_by: staff-alex
+      patient_ref: P-0012
+      receiver: rohan-arm-1
+      status: Submitted
+      status_at: "10:20"
+  - at: "10:20:05"
+    note: job 4471 as the transport system sends it; destination only as free text
+    record:
+      system: transport_system
+      request_id: "4471"
+      priority: Stat
+      origin_code: L2-W2B
+      origin_text: Ward 2B
+      destination_text: CT 2
+      transport_mode: bed
+      bed_type: bariatric
+      needed_by: "10:45"
+      patient_ref: P-0P
+      requested_by: staff-ward2b-desk
+      notes: on portable vent, needs large car
+      status: Requested
+      status_at: "10:20:05"
+  - at: "10:20:10"
+    note: identical resend of job 4471 (feeds resend whole records) - must be a duplicate
+    record:
+      system: transport_system
+      request_id: "4471"
+      priority: Stat
+      origin_code: L2-W2B
+      origin_text: Ward 2B
+      destination_text: CT 2
+      transport_mode: bed
+      bed_type: bariatric
+      needed_by: "10:45"
+      patient_ref: P-0P
+      requested_by: staff-ward2b-desk
+      notes: on portable vent, needs large car
+      status: Requested
+      status_at: "10:20:05"
+  - at: "10:20:15"
+    status: {system: transport_system, request_id: "4471", status: Assigned, status_at: "10:20:15"}
+  - at: "10:20:20"
+    status: {system: transport_system, request_id: "4471", status: Responding, status_at: "10:20:20"}
+  - at: "10:20:25"
+    note: late-arriving older status - must be ignored, job stays Responding
+    status: {system: transport_system, request_id: "4471", status: Assigned, status_at: "10:20:12"}
+  - at: "10:20:30"
+    note: ED transport with a coded destination (precedence stat with ED)
+    record:
+      system: transport_system
+      request_id: "4480"
+      priority: STAT
+      origin_code: L2-W2A
+      destination_code: L1-ED
+      transport_mode: stretcher
+      needed_by: "10:32"
+      patient_ref: P-0Q
+      status: Requested
+      status_at: "10:20:30"
+  - at: "10:20:35"
+    note: unknown origin code - must be refused
+    expect_reject: true
+    record:
+      system: transport_system
+      request_id: "4490"
+      priority: Normal
+      origin_code: L9-NOWHERE
+      status: Requested
+      status_at: "10:20:35"
+  - at: "10:20:40"
+    note: priority the hospital never mapped - must be refused
+    expect_reject: true
+    record:
+      system: transport_system
+      request_id: "4491"
+      priority: ASAP
+      origin_code: L2-W2B
+      status: Requested
+      status_at: "10:20:40"

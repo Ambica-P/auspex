@@ -1,0 +1,12 @@
+{
+ "urls": [
+  "https://ambica-p.github.io/auspex-vendors/ascendia-lifts/bulletins/al-sb-2026-017.html"
+ ],
+ "hits": [
+  {
+   "url": "https://ambica-p.github.io/auspex-vendors/ascendia-lifts/bulletins/al-sb-2026-017.html",
+   "title": "",
+   "content": "**Fictional bulletin** for the Auspex demo; describes no real equipment.\n\n# Service bulletin AL-SB-2026-017: fault code E-17 on AL-300 and AL-320B lifts\n\nFault code\n:   E-17\n\nMeaning\n:   Door sensor fault: the light curtain reported a blocked or dirty beam while the doors were closing, so the car took itself out of service and is running a door self-test.\n\nExpected recovery\n:   2 minutes (the car returns to service by itself once the self-test passes)\n\nManual reset required\n:   no\n\nAffected versions\n:   AL-300, AL-320B, controller firmware 4.2, 4.3\n\n## Details\n\nDuring the self-test the car reports OFFLINE to the building management system. If E-17 repeats more than three times in one hour, clean the light curtain lenses at both landings. No technician visit is needed for a single occurrence."
+  }
+ ]
+}

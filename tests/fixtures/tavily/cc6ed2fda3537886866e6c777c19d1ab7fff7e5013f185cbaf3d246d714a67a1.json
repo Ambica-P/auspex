@@ -1,0 +1,11 @@
+{
+ "query": {
+  "query": "Ascendia Lifts AL-300 fault code E-99 service bulletin",
+  "include_domains": [
+   "ambica-p.github.io"
+  ],
+  "max_results": 3,
+  "timeout_s": 10.0
+ },
+ "hits": []
+}

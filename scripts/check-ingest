@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Check core, bridge, consumer, intake and ledger end to end. Add --smoke after run-mock smoke.
+source "$(dirname "$0")/_lib.sh"
+exec uv run --frozen python -m auspex.ingest.check "$@"

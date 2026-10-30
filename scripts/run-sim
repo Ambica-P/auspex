@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Launch the clinic simulation with the Auspex fleet adapter extension (replan service).
+# Headless by default (no Gazebo GUI, no RViz) to keep memory down; --gui shows both.
+# Usage: scripts/run-sim [--gui] [extra launch args]
+source "$(dirname "$0")/_lib.sh"
+headless=true
+if [[ "${1:-}" == "--gui" ]]; then headless=false; shift; fi
+
+# Pre-flight: a crashed run leaves processes and shared-memory files that break ROS
+# discovery for the next one (an adapter hangs or cannot find the schedule node).
+leftovers="$(pgrep -af "gz sim|rviz2|auspex_fleet_adapter|fleet_manager|rmf_traffic_schedule|rmf_task_dispatcher|building_map_server" || true)"
+if [[ -n "$leftovers" ]]; then
+  echo "$leftovers" >&2
+  die "processes from an earlier sim are still running (above). Stop them with:
+  pkill -f 'gz sim|rviz2|auspex_fleet_adapter|fleet_manager|rmf_traffic|rmf_task_dispatcher|building_map_server|parameter_bridge|rmf_visualization|door_supervisor|lift_supervisor'"
+fi
+
+# Kernel UDP buffers: with Fast DDS over UDP, the ~2 MB building map (/map) is lost under load
+# when sockets get Linux's default ~208 KB buffers; slotcars then never learn their level and
+# no robot registers (2026-10-26). The settings below fixed it; make them permanent once with:
+#   printf 'net.core.rmem_max=8388608\nnet.core.wmem_max=8388608\nnet.core.rmem_default=8388608\nnet.core.wmem_default=8388608\n' | sudo tee /etc/sysctl.d/60-auspex-dds.conf && sudo sysctl --system
+min_buf=8388608
+for key in net.core.rmem_max net.core.wmem_max net.core.rmem_default net.core.wmem_default; do
+  value="$(sysctl -n "$key" 2>/dev/null || echo 0)"
+  if (( value < min_buf )); then
+    die "$key is $value (< $min_buf): large ROS messages get lost over UDP. Fix once with:
+  printf 'net.core.rmem_max=8388608\nnet.core.wmem_max=8388608\nnet.core.rmem_default=8388608\nnet.core.wmem_default=8388608\n' | sudo tee /etc/sysctl.d/60-auspex-dds.conf && sudo sysctl --system"
+  fi
+done
+
+source_ros
+if command -v fastdds >/dev/null 2>&1; then
+  fastdds shm clean >/dev/null 2>&1 || true
+fi
+ros2 daemon stop >/dev/null 2>&1 || true
+
+server_uri="$(env_value RMF_SERVER_URI ws://localhost:8000/_internal)"
+echo "run-sim: headless=$headless server_uri=$server_uri (then: scripts/check-levers ready)"
+exec ros2 launch "$REPO_ROOT/rmf_adapter_ext/launch/clinic_auspex.launch.xml" \
+  auspex_dir:="$REPO_ROOT/rmf_adapter_ext" server_uri:="$server_uri" headless:="$headless" "$@"

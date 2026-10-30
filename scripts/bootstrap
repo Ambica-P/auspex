@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Create the core virtualenv (Python 3.12 via uv, locked) and the bridge's virtualenv
+# (.venv-bridge: system Python 3.12 + system site packages for ROS, plus psycopg).
+source "$(dirname "$0")/_lib.sh"
+need uv "install with: curl -LsSf https://astral.sh/uv/install.sh | sh"
+uv sync --frozen
+if [[ ! -x .venv-bridge/bin/python ]]; then
+  uv venv --quiet --python /usr/bin/python3 --system-site-packages .venv-bridge
+fi
+uv pip install --quiet --python .venv-bridge/bin/python "psycopg[binary]>=3.2,<3.4"
+.venv-bridge/bin/python -c "import psycopg, sys; print('bridge venv: python', sys.version.split()[0], 'psycopg', psycopg.__version__)"
+if [[ ! -f .env ]]; then
+  cp .env.example .env
+  echo "Created .env from .env.example: fill in the empty values, then run scripts/check-env"
+fi
+echo "OK bootstrap done"

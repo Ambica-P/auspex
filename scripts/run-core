@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Run the core (REST API + event consumer) on CORE_HOST:CORE_PORT (default 127.0.0.1:8100).
+# Needs Postgres (scripts/db-up, scripts/migrate) and the nav graph captures (site/nav_graphs).
+source "$(dirname "$0")/_lib.sh"
+require_env_file
+exec uv run --frozen python -m auspex.api

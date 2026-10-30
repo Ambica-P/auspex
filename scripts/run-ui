@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# The ops console is served by the core: start scripts/run-core, then open the printed URL
+# in a Windows browser (WSL2 forwards localhost) and paste ADMIN_TOKEN from .env.
+source "$(dirname "$0")/_lib.sh"
+require_env_file
+url="http://$(env_value CORE_HOST 127.0.0.1):$(env_value CORE_PORT 8100)/ui/"
+if curl -fsS -m 3 "${url%/ui/}/health" >/dev/null 2>&1; then
+  echo "OK ops console: $url"
+else
+  echo "FAIL the core is not answering at ${url%/ui/} (start scripts/run-core first)"; exit 1
+fi

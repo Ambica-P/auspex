@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Replay a scenario into the core like the hospital's transport and delivery systems.
+# Usage: scripts/run-mock <scenario.yaml | name> [--speed N]   e.g. scripts/run-mock smoke
+source "$(dirname "$0")/_lib.sh"
+scenario="${1:?usage: scripts/run-mock <scenario.yaml|name> [--speed N]}"; shift
+[[ -f "$scenario" ]] || scenario="sim/scenarios/${scenario%.yaml}.yaml"
+[[ -f "$scenario" ]] || die "scenario not found: $scenario"
+exec uv run --frozen python -m hospital_mock replay "$scenario" "$@"

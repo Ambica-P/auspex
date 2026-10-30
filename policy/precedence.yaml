@@ -1,0 +1,11 @@
+# Highest first. A job takes the rank of the first entry it matches.
+# Authored by the hospital; Auspex never infers clinical urgency.
+precedence:
+  - {class: code}
+  - {class: stat, destination_type: emergency_department}
+  - {class: stat}
+  - {class: critical, payload: oxygen}
+  - {class: critical}
+  - {class: urgent}
+  - {class: routine}
+  - {class: return}

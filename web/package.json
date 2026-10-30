@@ -1,0 +1,29 @@
+{
+  "name": "auspex-web",
+  "version": "0.2.1",
+  "private": true,
+  "description": "Auspex judge-facing site: simulation replays, Nemotron playground, benchmark, audit ledger. Deployed on Vercel.",
+  "scripts": {
+    "predev": "node -e \"if(process.platform==='win32'){console.error('This is Windows Node. Inside WSL install Linux Node (nvm install 22), then: rm -rf node_modules && npm install');process.exit(1)}\"",
+    "dev": "next dev -p 8090",
+    "prebuild": "node -e \"if(process.platform==='win32'){console.error('This is Windows Node. Inside WSL install Linux Node (nvm install 22), then: rm -rf node_modules && npm install');process.exit(1)}\"",
+    "build": "next build",
+    "start": "next start -p 8090",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "geist": "1.7.2",
+    "next": "16.4.2",
+    "react": "19.2.9",
+    "react-dom": "19.2.9"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

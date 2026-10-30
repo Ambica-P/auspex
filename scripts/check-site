@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Build the site model from site/*.yaml and the captured nav graphs; print it; PASS or FAIL.
+source "$(dirname "$0")/_lib.sh"
+uv run --frozen python -m auspex.site "$@"

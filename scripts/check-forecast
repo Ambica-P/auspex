@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# M5 live check: forecast route, conflict before the lift, stall incident (sim, core, bridge up).
+source "$(dirname "$0")/_lib.sh"
+require_env_file
+source_ros
+ADMIN_TOKEN="$(env_value ADMIN_TOKEN)"
+CORE_URL="http://$(env_value CORE_HOST 127.0.0.1):$(env_value CORE_PORT 8100)"
+export ADMIN_TOKEN CORE_URL
+exec python3 "$REPO_ROOT/rmf_adapter_ext/check_forecast.py" "$@"

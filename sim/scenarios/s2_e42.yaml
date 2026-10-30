@@ -1,0 +1,100 @@
+# S2. The stall nobody announced (spec 14, reactive, uncertainty, Tavily).
+# Robot A collects oxygen from the L2 east store and heads back down through lift_1. Lift_1
+# goes OFFLINE with fault E-17 (door-sensor fault, auto-recovers in ~2 min) just after Robot A
+# came up, so Robot A stalls at the L2 lift_1 lobby on its way down. Slack: 6 minutes.
+# Earlier, transport 4472 passed through lift_1 (evidence for the incident report).
+# THIS VARIANT: fault E-42 (technician required), no recovery: handover is right, not waiting.
+# FICTIONAL people and data.
+id: s2_e42
+description: Oxygen robot stalls at lift_1 with fault E-42 (technician required)
+clock_start: "10:26:30"
+end_at: "10:42:00"
+robot_starts: {deliveryRobot/deliveryRobot_1: L1_sub_waiting_area_1, deliveryRobot/deliveryRobot_2: deliveryRobot_2_charger}
+
+events:
+  - at: "10:26:40"
+    record:
+      system: transport_system
+      request_id: "4472"
+      priority: High
+      origin_code: L2-W2A
+      destination_code: L1-ED
+      transport_mode: wheelchair
+      patient_ref: P-0R
+      status: Responding
+      status_at: "10:26:40"
+  - at: "10:28:30"
+    note: Alex's oxygen, from the east store this time
+    record:
+      system: delivery_requests
+      request_id: O2-S2
+      priority: Critical
+      item: oxygen
+      pickup_code: L2-O2E
+      dropoff_code: L1-W1A-12
+      needed_by: "10:40:30"
+      requested_by: staff-alex
+      patient_ref: P-0012
+      receiver: rohan-arm-1
+      status: Submitted
+      status_at: "10:28:30"
+
+robot_tasks:
+  - at: "10:28:35"
+    system: delivery_requests
+    request_id: O2-S2
+    fleet: deliveryRobot
+    robot: deliveryRobot_1
+    places: [L2_north_counter, L1_left_treatment_1]
+    due: "10:40:30"
+    receiver: rohan-arm-1
+
+porters:
+  - job: transport_system-4472
+    lift: lift_1
+    request_at: "10:28:55"
+    from_floor: L2
+    to_floor: L1
+    board_s: 20
+    alight_s: 20
+
+faults:
+  - lift: lift_1
+    at: "10:31:45"
+    mode: OFFLINE
+    code: E-42
+
+ground_truth:
+  incident: {trigger: blocked_status, robot: deliveryRobot/deliveryRobot_1, lift: lift_1}
+  acceptable_plans:
+    - handover - deliveryRobot_2 (free on L1) takes oxygen from the L1 store (L1-O2) to bed 12; cancel Robot A's run
+    - reroute - Robot A to bed 12 through lift_25 (lift_1 lanes closed for its fleet), if it arrives before the deadline
+  unacceptable:
+    - waiting for lift_1 (E-42 needs a technician)
+  baseline_a:
+    - kind: incident_opened
+      trigger: blocked_status
+      job: O2-S2
+    - kind: delivered_on_time
+      job: O2-S2
+      expect: false
+  baseline_b:   # deterministic Auspex: contains the fault, cannot tell E-42 from E-17
+    - kind: plan_applied
+      producer: fast_lane
+      action: close_lanes
+      segment: segment/lift_1
+      expect: true
+      why: playbook lift-out-of-service keeps robots out of the faulted lift; they replan
+    - kind: delivered_on_time
+      job: O2-S2
+      expect: null
+      why: measured; B reroutes, no handover (no evidence that E-42 needs a technician)
+  baseline_c:   # Auspex with Nemotron: E-42 needs a technician, so do not wait
+    - kind: plan_applied
+      producer: agent
+      actions_any: [close_lanes, submit_task]
+      expect: true
+      why: reroute or handover, never waiting for a lift that needs a technician
+    - kind: delivered_on_time
+      job: O2-S2
+      expect: true

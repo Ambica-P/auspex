@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# A/B/C benchmark (spec 15) on the live sim: runs each scenario in each configuration, then
+# writes bench/results/table.md. Sim, bridge and core must be running.
+# Usage: scripts/run-bench [--configs A,B,C] [--scenarios s1,s2,s2_e42,s3] [--runs 1]
+#                          [--allow-fake]   (allow C on LLM_PROVIDER=fake; labelled stand-in)
+source "$(dirname "$0")/_lib.sh"
+require_env_file
+configs="A,B,C"; scenarios="s1,s2,s2_e42,s3"; runs=1; allow_fake=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --configs) configs="$2"; shift 2 ;;
+    --scenarios) scenarios="$2"; shift 2 ;;
+    --runs) runs="$2"; shift 2 ;;
+    --allow-fake) allow_fake=1; shift ;;
+    *) die "unknown option $1" ;;
+  esac
+done
+provider="$(env_value LLM_PROVIDER fake)"
+if [[ ",$configs," == *",C,"* && "$provider" != "tokenfactory" && $allow_fake -eq 0 ]]; then
+  die "configuration C is reported from Nemotron on Token Factory: set LLM_PROVIDER=tokenfactory (and restart run-core), or pass --allow-fake for a labelled stand-in run"
+fi
+total=0; failed=0
+IFS=',' read -ra CS <<< "$configs"; IFS=',' read -ra SS <<< "$scenarios"
+for ((i = 1; i <= runs; i++)); do
+  for c in "${CS[@]}"; do
+    for s in "${SS[@]}"; do
+      total=$((total + 1))
+      echo "=== run $i/$runs: $s config $c"
+      if ! "$REPO_ROOT/scripts/run-scenario" "$s" --config "$c"; then failed=$((failed + 1)); fi
+    done
+  done
+done
+echo "=== $total scenario runs, $failed with a failed check"
+cd "$REPO_ROOT" && unset PYTHONPATH && uv run --frozen python -m bench.report

@@ -1,0 +1,7 @@
+# Which Open-RMF tasks Auspex may change (spec 7: "Auspex changes only tasks it owns").
+# Authored by the hospital. Tasks Auspex submits itself are always its own. A source listed
+# here delegates its robot tasks: when it links a task to a job (status update with the
+# task id), Auspex may interrupt, resume or cancel that task.
+ownership:
+  delegated_sources: [delivery_requests]
+  requester: auspex

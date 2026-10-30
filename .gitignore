@@ -1,0 +1,29 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python
+.venv/
+.venv-bridge/
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# node
+node_modules/
+
+# runtime
+.rmf_schedule_node.yaml
+*.log
+bench/results/raw/
+
+#personal
+notes.md
+# old local runs
+bench/old/

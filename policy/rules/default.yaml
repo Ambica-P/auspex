@@ -1,0 +1,24 @@
+# Gate rules (spec section 9). Evaluated by the policy gate (milestone 8).
+rules:
+  - id: never-delay-code-or-stat
+    applies_to: {plan_effect: delays_job, job_class: [code, stat]}
+    on_fail: BLOCK
+  - id: clinical-tie-needs-person
+    applies_to: {plan_effect: orders_same_class_jobs, job_class: [code, stat, critical]}
+    on_fail: REVIEW
+  - id: humans-not-ordered
+    applies_to: {action: [advise_staff]}
+    require: {job_class_at_or_below: urgent}
+    on_fail: BLOCK
+  - id: cert-o2-delivery
+    applies_to: {action: [submit_task, restrict_fleets], payload: oxygen}
+    require: {fleet_certified_for: o2_delivery}
+    on_fail: BLOCK
+  - id: max-concurrent-closures
+    applies_to: {action: [close_lanes]}
+    require: {max_closed_segments: 3}
+    on_fail: REVIEW
+  - id: inferred-claims-need-confidence
+    applies_to: {claim_basis: inferred}
+    require: {min_confidence: 0.6}
+    on_fail: REVIEW

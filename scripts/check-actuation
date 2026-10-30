@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# M7 live check: gate, approval, commands, lane read-back, inverses, ownership, ledger
+# (sim, bridge and core up; robots idle).
+source "$(dirname "$0")/_lib.sh"
+require_env_file
+exec uv run --frozen python -m auspex.execute.check "$@"

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Write the judge site's data into web/public/ (run index, site.json with the benchmark table)
+# and check everything there for secrets. Commit web/public/ afterwards; Vercel serves it.
+# Usage: scripts/build-web-data [--repo https://github.com/<you>/auspex]
+source "$(dirname "$0")/_lib.sh"
+require_env_file
+cd "$REPO_ROOT" && unset PYTHONPATH
+exec uv run --frozen python -m auspex.replay.build "$@"

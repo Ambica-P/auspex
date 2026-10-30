@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Capture the fleets' live /nav_graphs into site/nav_graphs/ (sim must be running).
+# Usage: scripts/capture-navgraphs [--fleets deliveryRobot,tinyRobot]
+source "$(dirname "$0")/_lib.sh"
+source_ros
+exec python3 "$REPO_ROOT/ros_bridge/capture_navgraphs.py" --out "$REPO_ROOT/site/nav_graphs" "$@"

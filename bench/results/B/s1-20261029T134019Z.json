@@ -1,0 +1,160 @@
+{
+ "scenario": "s1",
+ "config": "B",
+ "started": "2026-10-29T13:40:19.065121+00:00",
+ "clock_start": "10:26:30",
+ "observations": {
+  "robot_tasks": {
+   "O2-S1": {
+    "robot": "deliveryRobot/deliveryRobot_1",
+    "handovers": [],
+    "task_id": "auspex_check_2494bbd775d2",
+    "error": null,
+    "sent": "10:27:06",
+    "arrivals": {
+     "L2_sub_waiting_area_1": "10:30:17",
+     "L1_left_treatment_1": "10:36:16"
+    },
+    "delivered": "10:36:16",
+    "due": "10:40:00",
+    "on_time": true,
+    "lift_waits": [
+     {
+      "lift": "lift_25",
+      "requested": "10:28:24",
+      "granted": "10:28:25",
+      "wait_s": 0
+     },
+     {
+      "lift": "lift_25",
+      "requested": "10:31:27",
+      "granted": "10:33:30",
+      "wait_s": 124
+     }
+    ]
+   }
+  },
+  "porters": {
+   "transport_system-4471": {
+    "lift": "lift_25",
+    "requested": "10:30:00",
+    "granted": "10:30:06",
+    "released": "10:33:25",
+    "delay_s": 6
+   }
+  },
+  "faults": {},
+  "core_conflicts": [],
+  "core_incidents": [
+   {
+    "incident_id": "inc-deliveryRobot-deliveryRobot_1-1793281640",
+    "robot_urn": "robot/deliveryRobot-deliveryRobot_1",
+    "rmf_task_id": "auspex_check_2494bbd775d2",
+    "job_urn": "job/delivery_requests-O2-S1",
+    "segment_urn": "segment/lift_25-lobby-L2",
+    "detected_at": "2026-10-29T13:47:20.429127Z",
+    "trigger": "eta_slip",
+    "stakes": {
+     "due_at": "2026-10-29T13:53:49.065121Z",
+     "slack_s": 235.861993,
+     "payload": "oxygen",
+     "precedence": "critical"
+    },
+    "status": "open",
+    "plan_id": null,
+    "outcome": null,
+    "report": null,
+    "context": {},
+    "seen_at": "2026-10-29T13:47:21.669156+00:00"
+   }
+  ],
+  "core_plans": [
+   {
+    "plan_id": "fl-notify-stalled-delivery-inc-deliveryRobot-deliveryRobot_1-1793281640-134720",
+    "producer": "fast_lane",
+    "decision_latency_ms": 59.0,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "notify",
+      "window": null,
+      "job_urn": "job/delivery_requests-O2-S1",
+      "message": "Your delivery's robot has stopped (eta_slip); Auspex is working on it.",
+      "new_eta": "2026-10-29T13:49:53.203128Z",
+      "recipient_urn": "person/staff-alex"
+     }
+    ],
+    "rationale": "Playbook notify-stalled-delivery: eta_slip on a critical delivery; requester told.",
+    "created_at": "2026-10-29T13:47:20.472135+00:00"
+   }
+  ],
+  "core_reports": [],
+  "core_providers": {
+   "config": "B",
+   "llm_provider": "tokenfactory",
+   "search_provider": "tavily"
+  },
+  "core_jobs": {
+   "job/delivery_requests-O2-S1": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4471": {
+    "destination": null,
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S3": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-5001": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-5002": {
+    "destination": "zone/imaging-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S2": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4472": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   }
+  },
+  "core_interpretations": []
+ },
+ "checks": [
+  {
+   "ok": true,
+   "check": "conflict on segment/lift_25 between ['transport_system-4471', 'O2-S1']: detected = False, expected False"
+  },
+  {
+   "ok": true,
+   "check": "plan with ['close_lanes'] segment/lift_25 (any producer) applied and verified: none, expected False (nothing to act on; the collision happens as in A)"
+  },
+  {
+   "ok": true,
+   "check": "lift_25 contested: robot waited 124 s, porter delayed 6 s (robot and porter still collide at lift_25)"
+  }
+ ]
+}

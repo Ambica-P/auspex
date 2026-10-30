@@ -1,0 +1,46 @@
+<?xml version='1.0' ?>
+<!--
+  The rmf_demos clinic (rmf_demos_gz/clinic.launch.xml, kilted), with each fleet adapter
+  replaced by auspex_fleet_adapter.py: the same adapter plus a replan service per robot.
+  Launched by scripts/run-sim, which passes auspex_dir. $(dirname) is not used: it is
+  evaluated against the most recently included file (here rmf_visualization), not this one.
+-->
+<launch>
+  <arg name="auspex_dir" description="Absolute path of the repository's rmf_adapter_ext"/>
+  <arg name="server_uri" default="ws://localhost:8000/_internal"/>
+  <arg name="headless" default="false"/>
+  <arg name="gazebo_version" default="9"/>
+  <arg name="sim_update_rate" default="100"/>
+
+  <include file="$(find-pkg-share rmf_demos)/common.launch.xml">
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="$(var headless)"/>
+    <arg name="server_uri" value="$(var server_uri)"/>
+    <arg name="viz_config_file" value="$(find-pkg-share rmf_demos)/include/clinic/clinic.rviz"/>
+    <arg name="config_file" value="$(find-pkg-share rmf_demos_maps)/clinic/clinic.building.yaml"/>
+  </include>
+
+  <group>
+    <include file="$(var auspex_dir)/launch/fleet_adapter_auspex.launch.xml">
+      <arg name="auspex_dir" value="$(var auspex_dir)"/>
+      <arg name="server_uri" value="$(var server_uri)"/>
+      <arg name="nav_graph_file" value="$(find-pkg-share rmf_demos_maps)/maps/clinic/nav_graphs/0.yaml"/>
+      <arg name="config_file" value="$(find-pkg-share rmf_demos)/config/clinic/deliveryRobot_config.yaml"/>
+    </include>
+  </group>
+
+  <group>
+    <include file="$(var auspex_dir)/launch/fleet_adapter_auspex.launch.xml">
+      <arg name="auspex_dir" value="$(var auspex_dir)"/>
+      <arg name="server_uri" value="$(var server_uri)"/>
+      <arg name="nav_graph_file" value="$(find-pkg-share rmf_demos_maps)/maps/clinic/nav_graphs/1.yaml"/>
+      <arg name="config_file" value="$(find-pkg-share rmf_demos)/config/clinic/tinyRobot_config.yaml"/>
+    </include>
+  </group>
+
+  <include file="$(find-pkg-share rmf_demos_gz)/simulation.launch.xml">
+    <arg name="map_name" value="clinic"/>
+    <arg name="gazebo_version" value="$(var gazebo_version)"/>
+    <arg name="sim_update_rate" value="$(var sim_update_rate)"/>
+  </include>
+</launch>

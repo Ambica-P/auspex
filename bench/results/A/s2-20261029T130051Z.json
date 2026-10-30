@@ -1,0 +1,160 @@
+{
+ "scenario": "s2",
+ "config": "A",
+ "started": "2026-10-29T13:00:51.231584+00:00",
+ "clock_start": "10:26:30",
+ "observations": {
+  "robot_tasks": {
+   "O2-S2": {
+    "robot": "deliveryRobot/deliveryRobot_1",
+    "handovers": [],
+    "task_id": "auspex_check_346352ecea4d",
+    "error": null,
+    "sent": "10:28:37",
+    "arrivals": {
+     "L2_north_counter": "10:31:36",
+     "L1_left_treatment_1": "10:35:48"
+    },
+    "delivered": "10:35:48",
+    "due": "10:40:30",
+    "on_time": true,
+    "lift_waits": [
+     {
+      "lift": "lift_1",
+      "requested": "10:30:22",
+      "granted": "10:30:22",
+      "wait_s": 0
+     },
+     {
+      "lift": "lift_1",
+      "requested": "10:32:15",
+      "granted": "10:33:46",
+      "wait_s": 91
+     }
+    ]
+   }
+  },
+  "porters": {
+   "transport_system-4472": {
+    "lift": "lift_1",
+    "requested": "10:28:55",
+    "granted": "10:29:08",
+    "released": "10:30:07",
+    "delay_s": 13
+   }
+  },
+  "faults": {
+   "lift_1": {
+    "code": "E-17",
+    "reported": "10:31:45",
+    "held_from": "10:31:46",
+    "cleared": true
+   }
+  },
+  "core_conflicts": [
+   {
+    "conflict_id": "cf-f3c9422f28b91e30",
+    "kind": "overlap",
+    "segment_urn": "segment/lift_1",
+    "claim_ids": [
+     "cl-c7ed312816f04cb7",
+     "cl-e828f63caf1a949b",
+     "cl-fe4e7b97f5de997b"
+    ],
+    "job_urns": [
+     "job/delivery_requests-O2-S2",
+     "job/transport_system-4472"
+    ],
+    "window": {
+     "start": "2026-10-29T13:04:08.421369Z",
+     "end": "2026-10-29T13:06:55.470218Z"
+    },
+    "detected_at": "2026-10-29T13:03:01.470218Z",
+    "seen_at": "2026-10-29T13:03:01.896610+00:00"
+   }
+  ],
+  "core_incidents": [
+   {
+    "incident_id": "inc-deliveryRobot-deliveryRobot_1-1793279203",
+    "robot_urn": "robot/deliveryRobot-deliveryRobot_1",
+    "rmf_task_id": "auspex_check_346352ecea4d",
+    "job_urn": "job/delivery_requests-O2-S2",
+    "segment_urn": "segment/lift_1-lobby-L2",
+    "detected_at": "2026-10-29T13:06:43.212820Z",
+    "trigger": "blocked_status",
+    "stakes": {
+     "due_at": "2026-10-29T13:14:51.231584Z",
+     "slack_s": 355.8497,
+     "payload": "oxygen",
+     "precedence": "critical"
+    },
+    "status": "open",
+    "plan_id": null,
+    "outcome": null,
+    "report": null,
+    "context": {
+     "lift": "lift_1",
+     "lift_mode": "OFFLINE",
+     "fault_code": "E-17",
+     "lift_held_by": "fault/lift_1"
+    },
+    "seen_at": "2026-10-29T13:06:43.766189+00:00"
+   }
+  ],
+  "core_plans": [],
+  "core_reports": [],
+  "core_providers": {
+   "config": "A",
+   "llm_provider": "tokenfactory",
+   "search_provider": "tavily"
+  },
+  "core_jobs": {
+   "job/delivery_requests-O2-S2": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4472": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S1": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4471": {
+    "destination": null,
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-5001": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-5002": {
+    "destination": "zone/imaging-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S3": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   }
+  },
+  "core_interpretations": []
+ },
+ "checks": [
+  {
+   "ok": true,
+   "check": "core opened a blocked_status incident ({'lift': 'lift_1', 'lift_mode': 'OFFLINE', 'fault_code': 'E-17', 'lift_held_by': 'fault/lift_1'})"
+  },
+  {
+   "ok": true,
+   "check": "O2-S2 delivered 10:35:48 (due 10:40:30); on time = True, expected True"
+  }
+ ]
+}

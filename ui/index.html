@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auspex ops console</title>
+<link rel="icon" href="assets/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="login" class="login" hidden>
+  <form id="login-form">
+    <h1><img class="logo" src="assets/logo.png" alt="" width="30" height="30"> Auspex</h1>
+    <p>Enter the admin token from your <code>.env</code> (ADMIN_TOKEN). It stays in this browser tab only.</p>
+    <label for="token">Admin token</label>
+    <input id="token" type="password" autocomplete="off" required minlength="24">
+    <button type="submit">Open the console</button>
+    <p id="login-error" class="error" role="alert"></p>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header class="bar">
+    <div class="brand"><img class="logo" src="assets/logo.png" alt="" width="26" height="26">Auspex</div>
+    <div class="config" role="group" aria-label="Decision configuration">
+      <button data-config="A" title="Observe only">A observe</button>
+      <button data-config="B" title="Deterministic: playbooks and evaluator">B deterministic</button>
+      <button data-config="C" title="With Nemotron">C with Nemotron</button>
+    </div>
+    <div class="status">
+      <span id="clock" class="clock"></span>
+      <span id="providers"></span>
+      <button id="verify" class="link" title="Verify the hash chain">Ledger</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="timeline-panel" aria-labelledby="tl-title">
+      <div class="panel-head">
+        <h2 id="tl-title">Lifts and corridors, next 12 minutes</h2>
+        <div class="legend">
+          <span class="key people">People</span>
+          <span class="key people inferred">People, inferred</span>
+          <span class="key robots">Robots</span>
+          <span class="key conflict">Conflict</span>
+        </div>
+      </div>
+      <div id="timeline" class="timeline"></div>
+    </section>
+
+    <section class="decisions" aria-labelledby="dec-title">
+      <div class="panel-head"><h2 id="dec-title">Decisions</h2></div>
+      <div class="decisions-body">
+        <ol id="plans" class="plans"></ol>
+        <article id="detail" class="detail"><p class="empty">Select a decision to see why Auspex made it.</p></article>
+      </div>
+    </section>
+
+    <section class="side">
+      <div class="panel-head"><h2>Map</h2><span id="map-note" class="note"></span></div>
+      <div id="map" class="map"></div>
+      <div class="panel-head"><h2>Incidents</h2></div>
+      <ol id="incidents" class="incidents"></ol>
+    </section>
+  </main>
+
+  <dialog id="ledger-dialog" aria-labelledby="ledger-title">
+    <div class="panel-head"><h2 id="ledger-title">Ledger</h2><button class="link" id="ledger-close">Close</button></div>
+    <p id="ledger-status"></p>
+    <ol id="ledger" class="ledger"></ol>
+  </dialog>
+</div>
+<script src="render.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

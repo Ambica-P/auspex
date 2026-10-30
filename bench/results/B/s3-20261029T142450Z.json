@@ -1,0 +1,279 @@
+{
+ "scenario": "s3",
+ "config": "B",
+ "started": "2026-10-29T14:24:50.904788+00:00",
+ "clock_start": "10:38:30",
+ "observations": {
+  "robot_tasks": {
+   "O2-S3": {
+    "robot": "deliveryRobot/deliveryRobot_1",
+    "handovers": [],
+    "task_id": "auspex_check_348682efcb7d",
+    "error": null,
+    "sent": "10:39:36",
+    "arrivals": {},
+    "delivered": null,
+    "due": "10:45:30",
+    "on_time": false,
+    "lift_waits": []
+   }
+  },
+  "porters": {
+   "transport_system-5002": {
+    "lift": "lift_1",
+    "requested": "10:42:15",
+    "granted": "10:42:23",
+    "released": "10:44:46",
+    "delay_s": 8
+   },
+   "transport_system-5001": {
+    "lift": "lift_1",
+    "requested": "10:42:30",
+    "granted": "10:45:03",
+    "released": "10:47:22",
+    "delay_s": 153
+   }
+  },
+  "faults": {
+   "lift_25": {
+    "code": "E-42",
+    "reported": "10:39:00",
+    "held_from": "10:39:01",
+    "cleared": true
+   }
+  },
+  "core_conflicts": [
+   {
+    "conflict_id": "cf-d6a9fd6b0c97e03a",
+    "kind": "overlap",
+    "segment_urn": "segment/lift_1",
+    "claim_ids": [
+     "cl-084ff65768d01779",
+     "cl-69d04193492a51be",
+     "cl-9ccfe87ec5c7a876"
+    ],
+    "job_urns": [
+     "job/delivery_requests-O2-S3",
+     "job/transport_system-5002"
+    ],
+    "window": {
+     "start": "2026-10-29T14:28:45.904788Z",
+     "end": "2026-10-29T14:33:45.904788Z"
+    },
+    "detected_at": "2026-10-29T14:26:25.726775Z",
+    "seen_at": "2026-10-29T14:26:27.263486+00:00"
+   },
+   {
+    "conflict_id": "cf-b906f7868a98bba7",
+    "kind": "overlap",
+    "segment_urn": "segment/lift_1",
+    "claim_ids": [
+     "cl-69d04193492a51be",
+     "cl-9c9f90b5dda1a757"
+    ],
+    "job_urns": [
+     "job/transport_system-5001",
+     "job/transport_system-5002"
+    ],
+    "window": {
+     "start": "2026-10-29T14:28:45.904788Z",
+     "end": "2026-10-29T14:33:05.904788Z"
+    },
+    "detected_at": "2026-10-29T14:26:55.771942Z",
+    "seen_at": "2026-10-29T14:27:00.242506+00:00"
+   }
+  ],
+  "core_incidents": [
+   {
+    "incident_id": "inc-deliveryRobot-deliveryRobot_1-1793284048",
+    "robot_urn": "robot/deliveryRobot-deliveryRobot_1",
+    "rmf_task_id": "auspex_check_348682efcb7d",
+    "job_urn": "job/delivery_requests-O2-S3",
+    "segment_urn": "segment/door-L1_left_treatment_1",
+    "detected_at": "2026-10-29T14:27:28.375125Z",
+    "trigger": "no_progress",
+    "stakes": {
+     "due_at": "2026-10-29T14:31:50.904788Z",
+     "slack_s": null,
+     "payload": "oxygen",
+     "precedence": "critical"
+    },
+    "status": "open",
+    "plan_id": null,
+    "outcome": null,
+    "report": null,
+    "context": {},
+    "seen_at": "2026-10-29T14:27:28.651673+00:00"
+   }
+  ],
+  "core_plans": [
+   {
+    "plan_id": "fl-lift-out-of-service-lift_25-142521",
+    "producer": "fast_lane",
+    "decision_latency_ms": 44.2,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "close_lanes",
+      "window": null,
+      "fleet_name": "deliveryRobot",
+      "segment_urn": "segment/lift_25"
+     },
+     {
+      "action": "close_lanes",
+      "window": null,
+      "fleet_name": "tinyRobot",
+      "segment_urn": "segment/lift_25"
+     }
+    ],
+    "rationale": "Playbook lift-out-of-service: lift_25 reported OFFLINE E-42 by the building's lift monitoring; robots kept out of it until it is back in service.",
+    "created_at": "2026-10-29T14:25:21.129314+00:00"
+   },
+   {
+    "plan_id": "fl-clear-for-code-stat-cf-d6a9fd6b0c97e03a-142625",
+    "producer": "fast_lane",
+    "decision_latency_ms": 37.8,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "close_lanes",
+      "window": {
+       "end": "2026-10-29T14:34:15.904788Z",
+       "start": "2026-10-29T14:26:25.746015Z"
+      },
+      "fleet_name": "deliveryRobot",
+      "segment_urn": "segment/lift_1"
+     },
+     {
+      "action": "interrupt_task",
+      "window": {
+       "end": "2026-10-29T14:34:15.904788Z",
+       "start": "2026-10-29T14:26:25.746015Z"
+      },
+      "task_id": "auspex_check_348682efcb7d"
+     },
+     {
+      "action": "notify",
+      "window": null,
+      "job_urn": "job/delivery_requests-O2-S3",
+      "message": "Your delivery gives way to an urgent patient transport.",
+      "new_eta": "2026-10-29T14:42:18.978917Z",
+      "recipient_urn": "person/staff-alex"
+     }
+    ],
+    "rationale": "Playbook clear-for-code-stat: STAT transport 5002 needs segment/lift_1 until 14:34:15 UTC; robot deliveryRobot_1 held until 14:34:15 UTC (no other route).",
+    "created_at": "2026-10-29T14:26:25.749535+00:00"
+   },
+   {
+    "plan_id": "fl-notify-stalled-delivery-inc-deliveryRobot-deliveryRobot_1-1793284048-142728",
+    "producer": "fast_lane",
+    "decision_latency_ms": 30.7,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "notify",
+      "window": null,
+      "job_urn": "job/delivery_requests-O2-S3",
+      "message": "Your delivery's robot has stopped (no_progress); Auspex is working on it.",
+      "new_eta": null,
+      "recipient_urn": "person/staff-alex"
+     }
+    ],
+    "rationale": "Playbook notify-stalled-delivery: no_progress on a critical delivery; requester told.",
+    "created_at": "2026-10-29T14:27:28.397087+00:00"
+   }
+  ],
+  "core_reports": [],
+  "core_providers": {
+   "config": "B",
+   "llm_provider": "tokenfactory",
+   "search_provider": "tavily"
+  },
+  "core_jobs": {
+   "job/delivery_requests-O2-S3": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-5001": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-5002": {
+    "destination": "zone/imaging-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S2": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4472": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S1": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4471": {
+    "destination": null,
+    "inferred_fields": [],
+    "inference_confidence": null
+   }
+  },
+  "core_interpretations": []
+ },
+ "checks": [
+  {
+   "ok": true,
+   "check": "plan with ['close_lanes'] segment/lift_25 (fast_lane) applied and verified: ['fl-lift-out-of-service-lift_25-142521'], expected True (playbook lift-out-of-service keeps robots out of lift_25)"
+  },
+  {
+   "ok": true,
+   "check": "conflict on segment/lift_1 between ['transport_system-5001', 'transport_system-5002']: detected = True, expected True"
+  },
+  {
+   "ok": true,
+   "check": "porter transport_system-5001 delayed 153 s (>= None; measured; B has no lever over people and no composite option)"
+  },
+  {
+   "ok": true,
+   "check": "O2-S3 delivered None (due 10:45:30); on time = False, expected None"
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+# Segments (spec 3.2). Door and lift segments are created automatically from every crossing
+# in the fleets' navigation graphs; their lane indices per fleet come from /nav_graphs.
+# This file adds lift attributes and overrides, and defines corridor segments by area.
+# Hospital-authored and FICTIONAL: the clinic's two lifts are the same physical size in the
+# map; which one is bariatric-capable is a site decision made for the demo scenarios.
+
+# Robot timing for the ETA model, in sim seconds. Starting values from the M2 runs on the
+# user's machine (one run each): a lift trip (call, board, ride, exit) took ~40 s with the car
+# on the robot's floor; a door crossing added ~10-15 s. Forecast-vs-actual refines these.
+door_s: 8.0
+
+lifts:
+  lift_25:
+    name: "Lift 25 (west, bed lift)"
+    exclusive: true
+    attributes: {bed_capable: true, bariatric_capable: true, car_size: large}
+    vendor_urn: vendor/ascendia-lifts
+    product: AL-320B
+    robot_wait_s: 20
+    ride_s: 20
+  lift_1:
+    name: "Lift 1 (east)"
+    exclusive: true
+    attributes: {bed_capable: true, bariatric_capable: false, car_size: standard}
+    vendor_urn: vendor/ascendia-lifts
+    product: AL-300
+    robot_wait_s: 20
+    ride_s: 20
+
+# Overrides for automatically created door segments (default: shared, not exclusive).
+doors: {}
+
+# Corridor segments: plain lanes (no door or lift event) with both ends inside the area.
+# Coordinates are the nav graph's (metres, map frame of each level).
+areas:
+  - urn: segment/lift_25-lobby-L1
+    name: "Lift 25 lobby, L1"
+    area: {level: L1, x: [5, 13], y: [-46, -39]}
+  - urn: segment/lift_25-lobby-L2
+    name: "Lift 25 lobby, L2"
+    area: {level: L2, x: [5, 18], y: [-46, -39]}
+  - urn: segment/lift_1-lobby-L1
+    name: "Lift 1 lobby, L1"
+    area: {level: L1, x: [40, 46], y: [-13, -9]}
+  - urn: segment/lift_1-lobby-L2
+    name: "Lift 1 lobby, L2"
+    area: {level: L2, x: [39, 50], y: [-12, -9]}

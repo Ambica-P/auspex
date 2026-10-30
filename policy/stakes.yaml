@@ -1,0 +1,11 @@
+# Reactive stakes (spec 5.2), authored by the hospital. When a robot job stalls or its ETA
+# slips without an explained reason: a job of these classes, or with less slack than
+# min_slack_s, opens an incident; anything else is logged and waits.
+stakes:
+  incident_classes: [code, stat, critical]
+  min_slack_s: 120
+
+# Proactive: these classes need their route clear even on shared corridor segments; a
+# lower-precedence claim there is a conflict (required_clear). Exclusive segments (lifts)
+# conflict for every class.
+require_clear_classes: [code, stat]

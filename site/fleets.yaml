@@ -1,0 +1,17 @@
+# Robot fleets (FICTIONAL vendor data). certified_for feeds gate rule cert-o2-delivery.
+# ETA model: effective speed = nominal_speed_mps (rmf_demos config/clinic/<fleet>_config.yaml
+# linear velocity) x speed_factor, in sim time; the sim's measured real-time factor turns it
+# into wall time. speed_factor 0.77 from the M2 run (59.6 m in ~110 s, deliveryRobot).
+fleets:
+  deliveryRobot:
+    vendor_urn: vendor/jane-robotics
+    product: JR-D2
+    nominal_speed_mps: 0.7
+    speed_factor: 0.77
+    certified_for: [o2_delivery]
+  tinyRobot:
+    vendor_urn: vendor/jane-robotics
+    product: JR-T1
+    nominal_speed_mps: 0.5
+    speed_factor: 0.77
+    certified_for: []

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Run a scenario end to end on the live sim (sim, core and bridge must be running).
+# Usage: scripts/run-scenario s1|s2|s2_e42|s3 [--config A|B|C]   (default A: Auspex observes)
+source "$(dirname "$0")/_lib.sh"
+require_env_file
+name="${1:?usage: scripts/run-scenario s1|s2|s2_e42|s3 [--config A|B|C]}"; shift
+scenario="sim/scenarios/${name%.yaml}.yaml"
+[[ -f "$scenario" ]] || die "scenario not found: $scenario"
+source_ros
+ADMIN_TOKEN="$(env_value ADMIN_TOKEN)"
+CORE_URL="http://$(env_value CORE_HOST 127.0.0.1):$(env_value CORE_PORT 8100)"
+export ADMIN_TOKEN CORE_URL
+exec python3 "$REPO_ROOT/sim/scenario_controller.py" "$scenario" "$@"

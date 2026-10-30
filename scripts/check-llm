@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# M10 check: the configured LLM (LLM_PROVIDER) answers both agent roles with typed output.
+# With LLM_PROVIDER=tokenfactory this makes two small paid calls.
+source "$(dirname "$0")/_lib.sh"
+require_env_file
+exec uv run --frozen python -m auspex.agent.check "$@"

@@ -1,0 +1,129 @@
+# S1. The transport nobody's fields describe (spec 14, proactive, interpretation).
+# Robot A (deliveryRobot_1) collects Alex's oxygen from the L2 store and brings it down to
+# bed 12 through lift_25 (due 10:40). Job 4471 (Stat, bariatric bed, destination only the free
+# text "CT 2", notes about a large car) goes responding at 10:28; its porter takes lift_25 at
+# ~10:30, just as Robot A comes back to the L2 lobby. Structured fields alone give no
+# destination and no lift: only interpretation reveals the conflict.
+# FICTIONAL people and data.
+id: s1
+description: Oxygen robot and a Stat bariatric transport need lift_25 at the same time
+clock_start: "10:26:30"
+end_at: "10:41:00"
+robot_starts: {deliveryRobot/deliveryRobot_1: L1_sub_waiting_area_1, deliveryRobot/deliveryRobot_2: deliveryRobot_2_charger}
+
+events:
+  - at: "10:27:00"
+    note: Alex's oxygen request (delivery system)
+    record:
+      system: delivery_requests
+      request_id: O2-S1
+      priority: Critical
+      item: oxygen
+      pickup_code: L2-O2
+      dropoff_code: L1-W1A-12
+      needed_by: "10:40"
+      requested_by: staff-alex
+      patient_ref: P-0012
+      receiver: rohan-arm-1
+      status: Submitted
+      status_at: "10:27:00"
+  - at: "10:27:10"
+    note: job 4471 as the transport system sends it - destination only as free text
+    record:
+      system: transport_system
+      request_id: "4471"
+      priority: Stat
+      origin_code: L2-W2B
+      origin_text: Ward 2B
+      destination_text: CT 2
+      transport_mode: bed
+      bed_type: bariatric
+      needed_by: "10:45"
+      patient_ref: P-0P
+      requested_by: staff-ward2b-desk
+      notes: on portable vent, needs large car
+      status: Assigned
+      status_at: "10:27:10"
+  - at: "10:28:00"
+    status: {system: transport_system, request_id: "4471", status: Responding, status_at: "10:28:00"}
+
+robot_tasks:
+  - at: "10:27:05"
+    system: delivery_requests
+    request_id: O2-S1
+    fleet: deliveryRobot
+    robot: deliveryRobot_1
+    places: [L2_sub_waiting_area_1, L1_left_treatment_1]
+    due: "10:40:00"
+    receiver: rohan-arm-1
+
+porters:
+  - job: transport_system-4471
+    lift: lift_25
+    request_at: "10:30:00"
+    from_floor: L2
+    to_floor: L1
+    board_s: 90     # bariatric bed and portable vent
+    alight_s: 90
+
+ground_truth:
+  conflict: {segment: segment/lift_25, jobs: [transport_system-4471, delivery_requests-O2-S1]}
+  acceptable_plans:
+    - Robot A rerouted via lift_1 (lift_25 lanes closed for deliveryRobot over the porter's window, replan)
+    - Robot A held on L2 until the porter has left lift_25, Alex notified of the new ETA
+  unacceptable:
+    - Robot A in lift_25 while the porter needs it (the Stat transport delayed)
+  baseline_a:   # Open-RMF alone: the problem shows up
+    - kind: robot_waits_or_porter_delayed
+      lift: lift_25
+      robot_job: O2-S1
+      porter_job: transport_system-4471
+      min_robot_wait_s: 60
+      min_porter_delay_s: 20
+      why: robot and porter collide at lift_25
+    - kind: conflict_detected
+      segment: segment/lift_25
+      jobs: [transport_system-4471, O2-S1]
+      expect: false
+      why: without interpretation "CT 2" gives no destination, so no claim
+  baseline_b:   # deterministic Auspex: falls short, "CT 2" is not a structured destination
+    - kind: conflict_detected
+      segment: segment/lift_25
+      jobs: [transport_system-4471, O2-S1]
+      expect: false
+      why: without interpretation the transport has no destination, so no claim on lift_25
+    - kind: plan_applied
+      action: close_lanes
+      segment: segment/lift_25
+      expect: false
+      why: nothing to act on; the collision happens as in A
+    - kind: robot_waits_or_porter_delayed
+      lift: lift_25
+      robot_job: O2-S1
+      porter_job: transport_system-4471
+      min_robot_wait_s: 60
+      min_porter_delay_s: 20
+      why: robot and porter still collide at lift_25
+  baseline_c:   # Auspex with Nemotron: interpretation reveals the conflict before the lift
+    - kind: interpreted
+      job: transport_system-4471
+      destination: zone/imaging-L1
+      expect: true
+      why: '"CT 2" is an alias of Imaging (L1); listed as an inferred field with confidence'
+    - kind: conflict_detected
+      segment: segment/lift_25
+      jobs: [transport_system-4471, O2-S1]
+      expect: true
+    - kind: plan_applied
+      action: close_lanes
+      segment: segment/lift_25
+      expect: true
+      why: lift_25 kept clear of deliveryRobot over the porter's window; Robot A replans
+    - kind: porter_not_delayed
+      job: transport_system-4471
+      max_s: 30
+      why: the Stat transport is not delayed by the robot
+    - kind: delivered_on_time
+      job: O2-S1
+      expect: null
+      why: measured; Robot A goes via lift_1 (Alex is notified if late)

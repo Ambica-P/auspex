@@ -1,0 +1,210 @@
+[
+ {
+  "file": "replays/s1-A.json",
+  "scenario": "s1",
+  "config": "A",
+  "branch": "approve",
+  "description": "Oxygen robot and a Stat bariatric transport need lift_25 at the same time",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T13:00:02+00:00",
+  "size_kb": 879
+ },
+ {
+  "file": "replays/s1-B.json",
+  "scenario": "s1",
+  "config": "B",
+  "branch": "approve",
+  "description": "Oxygen robot and a Stat bariatric transport need lift_25 at the same time",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T13:50:27+00:00",
+  "size_kb": 878
+ },
+ {
+  "file": "replays/s1-C.json",
+  "scenario": "s1",
+  "config": "C",
+  "branch": "approve",
+  "description": "Oxygen robot and a Stat bariatric transport need lift_25 at the same time",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T22:27:17+00:00",
+  "size_kb": 982
+ },
+ {
+  "file": "replays/s2-A.json",
+  "scenario": "s2",
+  "config": "A",
+  "branch": "approve",
+  "description": "Oxygen robot stalls at lift_1 with fault E-17",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T13:10:30+00:00",
+  "size_kb": 713
+ },
+ {
+  "file": "replays/s2-B.json",
+  "scenario": "s2",
+  "config": "B",
+  "branch": "approve",
+  "description": "Oxygen robot stalls at lift_1 with fault E-17",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T14:01:55+00:00",
+  "size_kb": 870
+ },
+ {
+  "file": "replays/s2-C.json",
+  "scenario": "s2",
+  "config": "C",
+  "branch": "approve",
+  "description": "Oxygen robot stalls at lift_1 with fault E-17",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T16:00:24+00:00",
+  "size_kb": 808
+ },
+ {
+  "file": "replays/s2_e42-A.json",
+  "scenario": "s2_e42",
+  "config": "A",
+  "branch": "approve",
+  "description": "Oxygen robot stalls at lift_1 with fault E-42 (technician required)",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T13:27:16+00:00",
+  "size_kb": 1216
+ },
+ {
+  "file": "replays/s2_e42-B.json",
+  "scenario": "s2_e42",
+  "config": "B",
+  "branch": "approve",
+  "description": "Oxygen robot stalls at lift_1 with fault E-42 (technician required)",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T14:22:32+00:00",
+  "size_kb": 675
+ },
+ {
+  "file": "replays/s2_e42-C.json",
+  "scenario": "s2_e42",
+  "config": "C",
+  "branch": "approve",
+  "description": "Oxygen robot stalls at lift_1 with fault E-42 (technician required)",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T16:09:11+00:00",
+  "size_kb": 759
+ },
+ {
+  "file": "replays/s3-A.json",
+  "scenario": "s3",
+  "config": "A",
+  "branch": "approve",
+  "description": "lift_25 out of service, two Stat transports compete for lift_1, oxygen due",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T13:39:19+00:00",
+  "size_kb": 1473
+ },
+ {
+  "file": "replays/s3-B.json",
+  "scenario": "s3",
+  "config": "B",
+  "branch": "approve",
+  "description": "lift_25 out of service, two Stat transports compete for lift_1, oxygen due",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T14:34:44+00:00",
+  "size_kb": 871
+ },
+ {
+  "file": "replays/s3-C-reject.json",
+  "scenario": "s3",
+  "config": "C",
+  "branch": "reject",
+  "description": "lift_25 out of service, two Stat transports compete for lift_1, oxygen due",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": false,
+  "recorded_at": "2026-10-29T17:18:22+00:00",
+  "size_kb": 951
+ },
+ {
+  "file": "replays/s3-C.json",
+  "scenario": "s3",
+  "config": "C",
+  "branch": "approve",
+  "description": "lift_25 out of service, two Stat transports compete for lift_1, oxygen due",
+  "models": {
+   "triage": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "reason": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "llm_provider": "tokenfactory",
+  "search_provider": "tavily",
+  "passed": true,
+  "recorded_at": "2026-10-29T17:08:20+00:00",
+  "size_kb": 809
+ }
+]

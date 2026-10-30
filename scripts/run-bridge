@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Run the ROS bridge (Open-RMF topics -> event queue). Needs the sim (scripts/run-sim).
+source "$(dirname "$0")/_lib.sh"
+require_env_file
+[[ -x .venv-bridge/bin/python ]] || die "bridge venv missing: run scripts/bootstrap"
+source_ros
+DATABASE_URL="$(env_value DATABASE_URL)"
+LOG_LEVEL="$(env_value LOG_LEVEL INFO)"
+export DATABASE_URL LOG_LEVEL
+exec .venv-bridge/bin/python "$REPO_ROOT/ros_bridge/bridge.py"

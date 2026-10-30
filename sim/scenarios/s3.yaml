@@ -1,0 +1,147 @@
+# S3. Two STATs, one lift (spec 14, trade-off, clinical tie to a person).
+# lift_25 is OFFLINE (E-42). Two Stat transports need lift_1 within the same few minutes: one to
+# the ED, one to Imaging whose notes say the scan slot is held until 10:50. Alex's oxygen needs a
+# lift within 6 minutes, and deliveryRobot_2 is free on L1. In the baseline the Imaging porter
+# reaches lift_1 first and the ED transport waits; Robot A heads for lift_25 (Open-RMF does not
+# know it is out of service) and is stuck.
+# FICTIONAL people and data.
+id: s3
+description: lift_25 out of service, two Stat transports compete for lift_1, oxygen due
+clock_start: "10:38:30"
+end_at: "10:48:00"
+robot_starts: {deliveryRobot/deliveryRobot_1: L1_sub_waiting_area_1, deliveryRobot/deliveryRobot_2: deliveryRobot_2_charger}
+
+events:
+  - at: "10:39:30"
+    record:
+      system: delivery_requests
+      request_id: O2-S3
+      priority: Critical
+      item: oxygen
+      pickup_code: L2-O2
+      dropoff_code: L1-W1A-12
+      needed_by: "10:45:30"
+      requested_by: staff-alex
+      patient_ref: P-0012
+      receiver: rohan-arm-1
+      status: Submitted
+      status_at: "10:39:30"
+  - at: "10:40:00"
+    record:
+      system: transport_system
+      request_id: "5002"
+      priority: Stat
+      origin_code: L2-W2B
+      destination_code: L1-IMG
+      transport_mode: bed
+      bed_type: standard
+      patient_ref: P-0S
+      notes: scan slot held until 10:50
+      status: Responding
+      status_at: "10:40:00"
+  - at: "10:40:30"
+    record:
+      system: transport_system
+      request_id: "5001"
+      priority: Stat
+      origin_code: L2-W2A
+      destination_code: L1-ED
+      transport_mode: stretcher
+      patient_ref: P-0T
+      notes: suspected stroke, CT on arrival
+      status: Responding
+      status_at: "10:40:30"
+
+robot_tasks:
+  - at: "10:39:35"
+    system: delivery_requests
+    request_id: O2-S3
+    fleet: deliveryRobot
+    robot: deliveryRobot_1
+    places: [L2_sub_waiting_area_1, L1_left_treatment_1]
+    due: "10:45:30"
+    receiver: rohan-arm-1
+
+porters:
+  - job: transport_system-5002
+    lift: lift_1
+    request_at: "10:42:15"
+    from_floor: L2
+    to_floor: L1
+    board_s: 60
+    alight_s: 60
+  - job: transport_system-5001
+    lift: lift_1
+    request_at: "10:42:30"
+    from_floor: L2
+    to_floor: L1
+    board_s: 60
+    alight_s: 60
+
+faults:
+  - lift: lift_25
+    at: "10:39:00"
+    mode: OFFLINE
+    code: E-42
+
+ground_truth:
+  conflict: {segment: segment/lift_1, jobs: [transport_system-5001, transport_system-5002]}
+  acceptable_plans:
+    - ED transport (5001) first (policy precedence), Imaging after it (notes show slack to 10:50); routed to a person (clinical-tie-needs-person); oxygen handed to deliveryRobot_2 from the L1 store
+  unacceptable:
+    - Imaging before ED without a person's approval
+    - oxygen left with Robot A waiting for lift_25
+  baseline_a:
+    - kind: porter_delayed
+      job: transport_system-5001
+      min_s: 60
+      why: the ED transport waits behind the Imaging transport
+    - kind: delivered_on_time
+      job: O2-S3
+      expect: false
+    - kind: conflict_detected
+      segment: segment/lift_1
+      jobs: [transport_system-5001, transport_system-5002]
+      expect: true
+  baseline_b:   # deterministic Auspex: contains the fault, cannot order people or compose
+    - kind: plan_applied
+      producer: fast_lane
+      action: close_lanes
+      segment: segment/lift_25
+      expect: true
+      why: playbook lift-out-of-service keeps robots out of lift_25
+    - kind: conflict_detected
+      segment: segment/lift_1
+      jobs: [transport_system-5001, transport_system-5002]
+      expect: true
+    - kind: porter_delayed
+      job: transport_system-5001
+      min_s: null
+      why: measured; B has no lever over people and no composite option
+    - kind: delivered_on_time
+      job: O2-S3
+      expect: null
+      why: measured; no handover from the L1 store without the agent
+  baseline_c:   # Auspex with Nemotron: composite option, a person approves
+    - kind: conflict_detected
+      segment: segment/lift_1
+      jobs: [transport_system-5001, transport_system-5002]
+      expect: true
+    - kind: plan_applied
+      producer: agent
+      action: submit_task
+      expect: true
+      why: oxygen handed over to deliveryRobot_2 from the L1 store (no lift needed)
+    - kind: plan_applied
+      producer: agent
+      rule: clinical-tie-needs-person
+      action: notify
+      expect: true
+      why: order of the two STAT transports suggested to staff (ED first by policy; Imaging notes show slack); a person approved
+    - kind: delivered_on_time
+      job: O2-S3
+      expect: true
+    - kind: porter_delayed
+      job: transport_system-5001
+      min_s: null
+      why: measured; porters follow their own schedule in the simulation (advice is not an order)

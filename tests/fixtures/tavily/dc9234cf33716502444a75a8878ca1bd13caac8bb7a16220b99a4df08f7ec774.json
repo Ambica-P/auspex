@@ -1,0 +1,12 @@
+{
+ "urls": [
+  "https://ambica-p.github.io/auspex-vendors/ascendia-lifts/index.html"
+ ],
+ "hits": [
+  {
+   "url": "https://ambica-p.github.io/auspex-vendors/ascendia-lifts/index.html",
+   "title": "",
+   "content": "**Fictional company and products**, invented for the Auspex demo.\n\n# Ascendia Lifts: service bulletins for AL-300 and AL-320B\n\n* [AL-SB-2026-017: fault code E-17, door sensor fault (AL-300, AL-320B)](bulletins/al-sb-2026-017.html)\n* [AL-SB-2026-042: fault code E-42, drive inverter overcurrent trip (AL-300, AL-320B)](bulletins/al-sb-2026-042.html)"
+  }
+ ]
+}

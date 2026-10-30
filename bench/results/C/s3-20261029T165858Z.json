@@ -1,0 +1,323 @@
+{
+ "scenario": "s3",
+ "config": "C",
+ "started": "2026-10-29T16:58:58.153928+00:00",
+ "clock_start": "10:38:30",
+ "observations": {
+  "robot_tasks": {
+   "O2-S3": {
+    "robot": "deliveryRobot/deliveryRobot_2",
+    "handovers": [
+     {
+      "at": "10:40:26",
+      "from": "deliveryRobot/deliveryRobot_1",
+      "to": "deliveryRobot/deliveryRobot_2",
+      "task": "patrol.dispatch-379c41dc72"
+     }
+    ],
+    "task_id": "patrol.dispatch-379c41dc72",
+    "error": null,
+    "sent": "10:39:35",
+    "arrivals": {
+     "L1_left_treatment_1": "10:42:35"
+    },
+    "delivered": "10:42:35",
+    "due": "10:45:30",
+    "on_time": true,
+    "lift_waits": []
+   }
+  },
+  "porters": {
+   "transport_system-5002": {
+    "lift": "lift_1",
+    "requested": "10:42:15",
+    "granted": "10:42:28",
+    "released": "10:44:46",
+    "delay_s": 13
+   },
+   "transport_system-5001": {
+    "lift": "lift_1",
+    "requested": "10:42:30",
+    "granted": "10:45:08",
+    "released": "10:47:31",
+    "delay_s": 157
+   }
+  },
+  "faults": {
+   "lift_25": {
+    "code": "E-42",
+    "reported": "10:39:00",
+    "held_from": "10:39:01",
+    "cleared": true
+   }
+  },
+  "core_conflicts": [
+   {
+    "conflict_id": "cf-d6a9fd6b0c97e03a",
+    "kind": "overlap",
+    "segment_urn": "segment/lift_1",
+    "claim_ids": [
+     "cl-886226a6ce3d3572",
+     "cl-d128cb9e5ab8c03b",
+     "cl-ddc6f89793b58c64"
+    ],
+    "job_urns": [
+     "job/delivery_requests-O2-S3",
+     "job/transport_system-5002"
+    ],
+    "window": {
+     "start": "2026-10-29T17:02:53.153928Z",
+     "end": "2026-10-29T17:07:53.153928Z"
+    },
+    "detected_at": "2026-10-29T17:00:34.087373Z",
+    "seen_at": "2026-10-29T17:00:34.868687+00:00"
+   },
+   {
+    "conflict_id": "cf-b906f7868a98bba7",
+    "kind": "overlap",
+    "segment_urn": "segment/lift_1",
+    "claim_ids": [
+     "cl-c020bd7c62cc945d",
+     "cl-ddc6f89793b58c64"
+    ],
+    "job_urns": [
+     "job/transport_system-5001",
+     "job/transport_system-5002"
+    ],
+    "window": {
+     "start": "2026-10-29T17:02:53.153928Z",
+     "end": "2026-10-29T17:07:13.153928Z"
+    },
+    "detected_at": "2026-10-29T17:01:05.726560Z",
+    "seen_at": "2026-10-29T17:01:06.757836+00:00"
+   }
+  ],
+  "core_incidents": [],
+  "core_plans": [
+   {
+    "plan_id": "fl-lift-out-of-service-lift_25-165928",
+    "producer": "fast_lane",
+    "decision_latency_ms": 38.5,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "close_lanes",
+      "window": null,
+      "fleet_name": "deliveryRobot",
+      "segment_urn": "segment/lift_25"
+     },
+     {
+      "action": "close_lanes",
+      "window": null,
+      "fleet_name": "tinyRobot",
+      "segment_urn": "segment/lift_25"
+     }
+    ],
+    "rationale": "Playbook lift-out-of-service: lift_25 reported OFFLINE E-42 by the building's lift monitoring; robots kept out of it until it is back in service.",
+    "created_at": "2026-10-29T16:59:28.497409+00:00"
+   },
+   {
+    "plan_id": "fl-clear-for-code-stat-cf-d6a9fd6b0c97e03a-170034",
+    "producer": "fast_lane",
+    "decision_latency_ms": 32.7,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "close_lanes",
+      "window": {
+       "end": "2026-10-29T17:08:23.153928Z",
+       "start": "2026-10-29T17:00:34.106349Z"
+      },
+      "fleet_name": "deliveryRobot",
+      "segment_urn": "segment/lift_1"
+     },
+     {
+      "action": "interrupt_task",
+      "window": {
+       "end": "2026-10-29T17:08:23.153928Z",
+       "start": "2026-10-29T17:00:34.106349Z"
+      },
+      "task_id": "auspex_check_d429cfee89f6"
+     },
+     {
+      "action": "notify",
+      "window": null,
+      "job_urn": "job/delivery_requests-O2-S3",
+      "message": "Your delivery gives way to an urgent patient transport.",
+      "new_eta": "2026-10-29T17:16:26.286722Z",
+      "recipient_urn": "person/staff-alex"
+     }
+    ],
+    "rationale": "Playbook clear-for-code-stat: STAT transport 5002 needs segment/lift_1 until 17:08:23 UTC; robot deliveryRobot_1 held until 17:08:23 UTC (no other route).",
+    "created_at": "2026-10-29T17:00:34.108469+00:00"
+   },
+   {
+    "plan_id": "ag-cf-d6a9fd6b0c97e03a-170041",
+    "producer": "agent",
+    "decision_latency_ms": 7760.5,
+    "llm": {
+     "models": [
+      "nvidia/nemotron-3-super-120b-a12b"
+     ],
+     "calls": 1,
+     "tokens": 1862,
+     "llm_ms": 7688,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "submit_task",
+      "window": null,
+      "job_urn": "job/delivery_requests-O2-S3",
+      "payload": "oxygen",
+      "fleet_name": "deliveryRobot",
+      "pickup_place": "L1_sub_waiting_area_2",
+      "dropoff_place": "L1_left_treatment_1",
+      "earliest_start": null,
+      "replaces_task_id": "auspex_check_d429cfee89f6"
+     },
+     {
+      "action": "notify",
+      "window": null,
+      "job_urn": null,
+      "message": "Oxygen delivery may be delayed; please monitor patient status.",
+      "new_eta": null,
+      "recipient_urn": "person/staff-alex"
+     },
+     {
+      "action": "notify",
+      "window": null,
+      "job_urn": null,
+      "message": "Verify oxygen availability at Oxygen store L1 before proceeding.",
+      "new_eta": null,
+      "recipient_urn": "staff/transport-desk"
+     }
+    ],
+    "rationale": "[nvidia/nemotron-3-super-120b-a12b] The note for job/transport_system-5002 states: 'scan slot held until 10:50', indicating slack in the imaging schedule that can absorb a brief delay. Since only one patient transport exists, ordering two patients of the same class would require explicit approval per hospital policy.",
+    "created_at": "2026-10-29T17:00:41.851742+00:00"
+   },
+   {
+    "plan_id": "ag-cf-b906f7868a98bba7-170110",
+    "producer": "agent",
+    "decision_latency_ms": 4396.9,
+    "llm": {
+     "models": [
+      "nvidia/nemotron-3-super-120b-a12b"
+     ],
+     "calls": 1,
+     "tokens": 1411,
+     "llm_ms": 4366,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "REVIEW",
+    "rule_ids": [
+     "clinical-tie-needs-person"
+    ],
+    "actions": [
+     {
+      "action": "notify",
+      "window": null,
+      "job_urn": null,
+      "message": "Suggested transport order follows policy: first job/transport_system-5001 (suspected stroke, CT on arrival) then job/transport_system-5002 (scan slot held until 10:50). Please confirm.",
+      "new_eta": null,
+      "recipient_urn": "staff/transport-desk"
+     }
+    ],
+    "rationale": "[nvidia/nemotron-3-super-120b-a12b] Selected opt1 respects policy_order, uses available data, and highlights the held scan slot as slack while noting that same\u2011class stat transports need approval.",
+    "created_at": "2026-10-29T17:01:10.125913+00:00"
+   }
+  ],
+  "core_reports": [],
+  "core_providers": {
+   "config": "C",
+   "llm_provider": "tokenfactory",
+   "search_provider": "tavily"
+  },
+  "core_jobs": {
+   "job/transport_system-5001": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-5002": {
+    "destination": "zone/imaging-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S3": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S1": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4471": {
+    "destination": null,
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4472": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S2": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   }
+  },
+  "core_interpretations": []
+ },
+ "checks": [
+  {
+   "ok": true,
+   "check": "conflict on segment/lift_1 between ['transport_system-5001', 'transport_system-5002']: detected = True, expected True"
+  },
+  {
+   "ok": true,
+   "check": "plan with ['submit_task']  (agent) applied and verified: ['ag-cf-d6a9fd6b0c97e03a-170041'], expected True (oxygen handed over to deliveryRobot_2 from the L1 store (no lift needed))"
+  },
+  {
+   "ok": true,
+   "check": "plan with ['notify']  rule clinical-tie-needs-person (agent) applied and verified: ['ag-cf-b906f7868a98bba7-170110'], expected True (order of the two STAT transports suggested to staff (ED first by policy; Imaging notes show slack); a person approved)"
+  },
+  {
+   "ok": true,
+   "check": "O2-S3 delivered 10:42:35 (due 10:45:30); on time = True, expected True"
+  },
+  {
+   "ok": true,
+   "check": "porter transport_system-5001 delayed 157 s (>= None; measured; porters follow their own schedule in the simulation (advice is not an order))"
+  }
+ ]
+}

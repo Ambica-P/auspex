@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Final rehearsal (spec 18.2 M13): every scenario in every configuration on the live sim,
+# recording a replay of each run (web/public/replays/), the benchmark results and, with
+# SEARCH_PROVIDER=tavily and TAVILY_RECORD=true, the Tavily fixtures. S3 in C is recorded twice:
+# the person approves, and the person rejects (the replay's two approval branches).
+# Sim, bridge and core must be running. About 3.5 hours for the full set.
+# Usage: scripts/record-replays [--configs A,B,C] [--scenarios s1,s2,s2_e42,s3] [--allow-fake]
+source "$(dirname "$0")/_lib.sh"
+require_env_file
+configs="A,B,C"; scenarios="s1,s2,s2_e42,s3"; allow_fake=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --configs) configs="$2"; shift 2 ;;
+    --scenarios) scenarios="$2"; shift 2 ;;
+    --allow-fake) allow_fake=1; shift ;;
+    *) die "unknown option $1" ;;
+  esac
+done
+provider="$(env_value LLM_PROVIDER fake)"
+if [[ ",$configs," == *",C,"* && "$provider" != "tokenfactory" && $allow_fake -eq 0 ]]; then
+  die "the rehearsal records C on Nemotron: set LLM_PROVIDER=tokenfactory (and restart run-core), or pass --allow-fake for a labelled stand-in recording"
+fi
+[[ "$(env_value LLM_DEBUG false)" =~ ^(true|1|yes)$ ]] && die "LLM_DEBUG is on: replays must hold prompt hashes only (set LLM_DEBUG=false, restart run-core)"
+echo "LLM ${provider}, search $(env_value SEARCH_PROVIDER local), Tavily recording $(env_value TAVILY_RECORD false)"
+mkdir -p web/public/replays
+total=0; failed=0
+IFS=',' read -ra CS <<< "$configs"; IFS=',' read -ra SS <<< "$scenarios"
+run() {
+  total=$((total + 1))
+  echo "=== $*"
+  if ! "$REPO_ROOT/scripts/run-scenario" "$@" --record; then failed=$((failed + 1)); fi
+}
+for c in "${CS[@]}"; do
+  for s in "${SS[@]}"; do
+    run "$s" --config "$c"
+  done
+done
+if [[ ",$configs," == *",C,"* && ",$scenarios," == *",s3,"* ]]; then
+  run s3 --config C --reject
+fi
+echo "=== $total recorded runs, $failed with a failed check"
+cd "$REPO_ROOT" && unset PYTHONPATH && uv run --frozen python -m bench.report >/dev/null && echo "benchmark table: bench/results/table.md (and table.json)"
+ls -1 web/public/replays/*.json

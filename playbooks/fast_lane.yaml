@@ -1,0 +1,26 @@
+# Fast lane (spec 6, Contain): deterministic responses that make a situation safe within
+# FAST_LANE_BUDGET_MS. No LLM, no Tavily. Each plan still passes the policy gate; a plan the
+# gate ALLOWs is applied automatically and the affected people are notified.
+playbooks:
+  - id: lift-out-of-service
+    # The building's lift monitoring reports a lift not in AGV mode (fault, fire, offline).
+    trigger: lift_unavailable
+    close_lanes_for: every_fleet        # entry/exit lanes of the lift, every fleet using it
+    replan: robots_routed_through       # robots whose forecast route uses the lift
+    notify: requesters_of_affected_jobs
+    reopen_when: lift_available         # lanes reopened when the feed reports AGV again
+
+  - id: clear-for-code-stat
+    # A CODE or STAT transport needs a segment a robot is about to use.
+    trigger: conflict
+    human_classes: [code, stat]
+    close_lanes_for: robot_fleet        # for the human claim's window
+    pad_s: 30
+    replan: robot
+    if_no_route: hold                   # interrupt the robot's task (owned only) for the window
+    notify: requesters_of_affected_jobs
+
+  - id: notify-stalled-delivery
+    # A robot delivery with stakes stalls: tell the requester the new estimate.
+    trigger: incident
+    notify: requester

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Create the database and app role (idempotent), then apply migrations.
+# Usage: scripts/migrate [main|test]   (default main)
+source "$(dirname "$0")/_lib.sh"
+target="${1:-main}"
+uv run --frozen python -m auspex.core.db bootstrap "$target"
+uv run --frozen alembic -x target="$target" upgrade head
+uv run --frozen alembic -x target="$target" current
+echo "OK migrations applied ($target)"

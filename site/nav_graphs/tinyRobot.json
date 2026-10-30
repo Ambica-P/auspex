@@ -1,0 +1,2243 @@
+{
+ "captured_at": "2026-10-26T06:36:50.560708Z",
+ "fleet": "tinyRobot",
+ "lanes": [
+  {
+   "edge_type": 1,
+   "index": 0,
+   "params": {},
+   "v1": 0,
+   "v2": 1
+  },
+  {
+   "edge_type": 1,
+   "index": 1,
+   "params": {},
+   "v1": 1,
+   "v2": 0
+  },
+  {
+   "edge_type": 1,
+   "index": 2,
+   "params": {},
+   "v1": 2,
+   "v2": 3
+  },
+  {
+   "edge_type": 1,
+   "index": 3,
+   "params": {},
+   "v1": 3,
+   "v2": 2
+  },
+  {
+   "edge_type": 1,
+   "index": 4,
+   "params": {},
+   "v1": 3,
+   "v2": 4
+  },
+  {
+   "edge_type": 1,
+   "index": 5,
+   "params": {},
+   "v1": 4,
+   "v2": 3
+  },
+  {
+   "edge_type": 1,
+   "index": 6,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L1_left_inner",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L1_left_inner"
+   },
+   "v1": 4,
+   "v2": 5
+  },
+  {
+   "edge_type": 1,
+   "index": 7,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L1_left_inner",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L1_left_inner"
+   },
+   "v1": 5,
+   "v2": 4
+  },
+  {
+   "edge_type": 1,
+   "index": 8,
+   "params": {},
+   "v1": 5,
+   "v2": 6
+  },
+  {
+   "edge_type": 1,
+   "index": 9,
+   "params": {},
+   "v1": 6,
+   "v2": 5
+  },
+  {
+   "edge_type": 1,
+   "index": 10,
+   "params": {},
+   "v1": 2,
+   "v2": 7
+  },
+  {
+   "edge_type": 1,
+   "index": 11,
+   "params": {},
+   "v1": 7,
+   "v2": 2
+  },
+  {
+   "edge_type": 1,
+   "index": 12,
+   "params": {},
+   "v1": 7,
+   "v2": 8
+  },
+  {
+   "edge_type": 1,
+   "index": 13,
+   "params": {},
+   "v1": 8,
+   "v2": 7
+  },
+  {
+   "edge_type": 1,
+   "index": 14,
+   "params": {},
+   "v1": 8,
+   "v2": 9
+  },
+  {
+   "edge_type": 1,
+   "index": 15,
+   "params": {},
+   "v1": 9,
+   "v2": 8
+  },
+  {
+   "edge_type": 1,
+   "index": 16,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L1_clinic_a",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L1_clinic_a"
+   },
+   "v1": 10,
+   "v2": 11
+  },
+  {
+   "edge_type": 1,
+   "index": 17,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L1_clinic_a",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L1_clinic_a"
+   },
+   "v1": 11,
+   "v2": 10
+  },
+  {
+   "edge_type": 1,
+   "index": 18,
+   "params": {},
+   "v1": 9,
+   "v2": 12
+  },
+  {
+   "edge_type": 1,
+   "index": 19,
+   "params": {},
+   "v1": 12,
+   "v2": 9
+  },
+  {
+   "edge_type": 1,
+   "index": 20,
+   "params": {},
+   "v1": 12,
+   "v2": 13
+  },
+  {
+   "edge_type": 1,
+   "index": 21,
+   "params": {},
+   "v1": 13,
+   "v2": 12
+  },
+  {
+   "edge_type": 1,
+   "index": 22,
+   "params": {},
+   "v1": 13,
+   "v2": 10
+  },
+  {
+   "edge_type": 1,
+   "index": 23,
+   "params": {},
+   "v1": 10,
+   "v2": 13
+  },
+  {
+   "edge_type": 1,
+   "index": 24,
+   "params": {
+    "entry_lift_door_open_duration": 0,
+    "entry_lift_door_open_floor_name": "L1",
+    "entry_lift_door_open_lift_name": "lift_25",
+    "exit_lift_end_duration": 0,
+    "exit_lift_end_floor_name": "L1",
+    "exit_lift_end_lift_name": "lift_25"
+   },
+   "v1": 14,
+   "v2": 15
+  },
+  {
+   "edge_type": 1,
+   "index": 25,
+   "params": {
+    "entry_lift_end_duration": 0,
+    "entry_lift_end_floor_name": "L1",
+    "entry_lift_end_lift_name": "lift_25"
+   },
+   "v1": 15,
+   "v2": 14
+  },
+  {
+   "edge_type": 1,
+   "index": 26,
+   "params": {},
+   "v1": 11,
+   "v2": 16
+  },
+  {
+   "edge_type": 1,
+   "index": 27,
+   "params": {},
+   "v1": 16,
+   "v2": 11
+  },
+  {
+   "edge_type": 1,
+   "index": 28,
+   "params": {},
+   "v1": 11,
+   "v2": 17
+  },
+  {
+   "edge_type": 1,
+   "index": 29,
+   "params": {},
+   "v1": 17,
+   "v2": 11
+  },
+  {
+   "edge_type": 1,
+   "index": 30,
+   "params": {},
+   "v1": 17,
+   "v2": 15
+  },
+  {
+   "edge_type": 1,
+   "index": 31,
+   "params": {},
+   "v1": 15,
+   "v2": 17
+  },
+  {
+   "edge_type": 1,
+   "index": 32,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L1_clinic_b",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L1_clinic_b"
+   },
+   "v1": 16,
+   "v2": 18
+  },
+  {
+   "edge_type": 1,
+   "index": 33,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L1_clinic_b",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L1_clinic_b"
+   },
+   "v1": 18,
+   "v2": 16
+  },
+  {
+   "edge_type": 1,
+   "index": 34,
+   "params": {},
+   "v1": 18,
+   "v2": 19
+  },
+  {
+   "edge_type": 1,
+   "index": 35,
+   "params": {},
+   "v1": 19,
+   "v2": 18
+  },
+  {
+   "edge_type": 1,
+   "index": 36,
+   "params": {},
+   "v1": 19,
+   "v2": 20
+  },
+  {
+   "edge_type": 1,
+   "index": 37,
+   "params": {},
+   "v1": 20,
+   "v2": 19
+  },
+  {
+   "edge_type": 1,
+   "index": 38,
+   "params": {},
+   "v1": 20,
+   "v2": 21
+  },
+  {
+   "edge_type": 1,
+   "index": 39,
+   "params": {},
+   "v1": 21,
+   "v2": 20
+  },
+  {
+   "edge_type": 1,
+   "index": 40,
+   "params": {},
+   "v1": 21,
+   "v2": 22
+  },
+  {
+   "edge_type": 1,
+   "index": 41,
+   "params": {},
+   "v1": 22,
+   "v2": 21
+  },
+  {
+   "edge_type": 1,
+   "index": 42,
+   "params": {},
+   "v1": 22,
+   "v2": 23
+  },
+  {
+   "edge_type": 1,
+   "index": 43,
+   "params": {},
+   "v1": 23,
+   "v2": 22
+  },
+  {
+   "edge_type": 1,
+   "index": 44,
+   "params": {},
+   "v1": 23,
+   "v2": 24
+  },
+  {
+   "edge_type": 1,
+   "index": 45,
+   "params": {},
+   "v1": 24,
+   "v2": 23
+  },
+  {
+   "edge_type": 1,
+   "index": 46,
+   "params": {},
+   "v1": 24,
+   "v2": 25
+  },
+  {
+   "edge_type": 1,
+   "index": 47,
+   "params": {},
+   "v1": 25,
+   "v2": 24
+  },
+  {
+   "edge_type": 1,
+   "index": 48,
+   "params": {},
+   "v1": 25,
+   "v2": 26
+  },
+  {
+   "edge_type": 1,
+   "index": 49,
+   "params": {},
+   "v1": 26,
+   "v2": 25
+  },
+  {
+   "edge_type": 1,
+   "index": 50,
+   "params": {},
+   "v1": 26,
+   "v2": 27
+  },
+  {
+   "edge_type": 1,
+   "index": 51,
+   "params": {},
+   "v1": 27,
+   "v2": 26
+  },
+  {
+   "edge_type": 1,
+   "index": 52,
+   "params": {},
+   "v1": 27,
+   "v2": 28
+  },
+  {
+   "edge_type": 1,
+   "index": 53,
+   "params": {},
+   "v1": 28,
+   "v2": 27
+  },
+  {
+   "edge_type": 1,
+   "index": 54,
+   "params": {
+    "entry_lift_end_duration": 0,
+    "entry_lift_end_floor_name": "L1",
+    "entry_lift_end_lift_name": "lift_1"
+   },
+   "v1": 28,
+   "v2": 29
+  },
+  {
+   "edge_type": 1,
+   "index": 55,
+   "params": {
+    "entry_lift_door_open_duration": 0,
+    "entry_lift_door_open_floor_name": "L1",
+    "entry_lift_door_open_lift_name": "lift_1",
+    "exit_lift_end_duration": 0,
+    "exit_lift_end_floor_name": "L1",
+    "exit_lift_end_lift_name": "lift_1"
+   },
+   "v1": 29,
+   "v2": 28
+  },
+  {
+   "edge_type": 1,
+   "index": 56,
+   "params": {},
+   "v1": 27,
+   "v2": 30
+  },
+  {
+   "edge_type": 1,
+   "index": 57,
+   "params": {},
+   "v1": 30,
+   "v2": 27
+  },
+  {
+   "edge_type": 1,
+   "index": 58,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L1_right_inner",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L1_right_inner"
+   },
+   "v1": 30,
+   "v2": 31
+  },
+  {
+   "edge_type": 1,
+   "index": 59,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L1_right_inner",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L1_right_inner"
+   },
+   "v1": 31,
+   "v2": 30
+  },
+  {
+   "edge_type": 1,
+   "index": 60,
+   "params": {},
+   "v1": 30,
+   "v2": 32
+  },
+  {
+   "edge_type": 1,
+   "index": 61,
+   "params": {},
+   "v1": 32,
+   "v2": 30
+  },
+  {
+   "edge_type": 1,
+   "index": 62,
+   "params": {},
+   "v1": 32,
+   "v2": 33
+  },
+  {
+   "edge_type": 1,
+   "index": 63,
+   "params": {},
+   "v1": 33,
+   "v2": 32
+  },
+  {
+   "edge_type": 1,
+   "index": 64,
+   "params": {},
+   "v1": 4,
+   "v2": 0
+  },
+  {
+   "edge_type": 1,
+   "index": 65,
+   "params": {},
+   "v1": 0,
+   "v2": 4
+  },
+  {
+   "edge_type": 1,
+   "index": 66,
+   "params": {},
+   "v1": 0,
+   "v2": 34
+  },
+  {
+   "edge_type": 1,
+   "index": 67,
+   "params": {},
+   "v1": 34,
+   "v2": 0
+  },
+  {
+   "edge_type": 1,
+   "index": 68,
+   "params": {},
+   "v1": 34,
+   "v2": 32
+  },
+  {
+   "edge_type": 1,
+   "index": 69,
+   "params": {},
+   "v1": 32,
+   "v2": 34
+  },
+  {
+   "edge_type": 1,
+   "index": 70,
+   "params": {},
+   "v1": 31,
+   "v2": 35
+  },
+  {
+   "edge_type": 1,
+   "index": 71,
+   "params": {},
+   "v1": 35,
+   "v2": 31
+  },
+  {
+   "edge_type": 1,
+   "index": 72,
+   "params": {},
+   "v1": 36,
+   "v2": 37
+  },
+  {
+   "edge_type": 1,
+   "index": 73,
+   "params": {},
+   "v1": 37,
+   "v2": 36
+  },
+  {
+   "edge_type": 1,
+   "index": 74,
+   "params": {
+    "entry_lift_door_open_duration": 0,
+    "entry_lift_door_open_floor_name": "L2",
+    "entry_lift_door_open_lift_name": "lift_25",
+    "exit_lift_end_duration": 0,
+    "exit_lift_end_floor_name": "L2",
+    "exit_lift_end_lift_name": "lift_25"
+   },
+   "v1": 38,
+   "v2": 39
+  },
+  {
+   "edge_type": 1,
+   "index": 75,
+   "params": {
+    "entry_lift_end_duration": 0,
+    "entry_lift_end_floor_name": "L2",
+    "entry_lift_end_lift_name": "lift_25"
+   },
+   "v1": 39,
+   "v2": 38
+  },
+  {
+   "edge_type": 1,
+   "index": 76,
+   "params": {},
+   "v1": 39,
+   "v2": 40
+  },
+  {
+   "edge_type": 1,
+   "index": 77,
+   "params": {},
+   "v1": 40,
+   "v2": 39
+  },
+  {
+   "edge_type": 1,
+   "index": 78,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L2_clinic_a",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L2_clinic_a"
+   },
+   "v1": 40,
+   "v2": 41
+  },
+  {
+   "edge_type": 1,
+   "index": 79,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L2_clinic_a",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L2_clinic_a"
+   },
+   "v1": 41,
+   "v2": 40
+  },
+  {
+   "edge_type": 1,
+   "index": 80,
+   "params": {},
+   "v1": 40,
+   "v2": 42
+  },
+  {
+   "edge_type": 1,
+   "index": 81,
+   "params": {},
+   "v1": 42,
+   "v2": 40
+  },
+  {
+   "edge_type": 1,
+   "index": 82,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L2_clinic_b",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L2_clinic_b"
+   },
+   "v1": 42,
+   "v2": 43
+  },
+  {
+   "edge_type": 1,
+   "index": 83,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L2_clinic_b",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L2_clinic_b"
+   },
+   "v1": 43,
+   "v2": 42
+  },
+  {
+   "edge_type": 1,
+   "index": 84,
+   "params": {},
+   "v1": 43,
+   "v2": 44
+  },
+  {
+   "edge_type": 1,
+   "index": 85,
+   "params": {},
+   "v1": 44,
+   "v2": 43
+  },
+  {
+   "edge_type": 1,
+   "index": 86,
+   "params": {},
+   "v1": 44,
+   "v2": 45
+  },
+  {
+   "edge_type": 1,
+   "index": 87,
+   "params": {},
+   "v1": 45,
+   "v2": 44
+  },
+  {
+   "edge_type": 1,
+   "index": 88,
+   "params": {},
+   "v1": 45,
+   "v2": 46
+  },
+  {
+   "edge_type": 1,
+   "index": 89,
+   "params": {},
+   "v1": 46,
+   "v2": 45
+  },
+  {
+   "edge_type": 1,
+   "index": 90,
+   "params": {},
+   "v1": 46,
+   "v2": 47
+  },
+  {
+   "edge_type": 1,
+   "index": 91,
+   "params": {},
+   "v1": 47,
+   "v2": 46
+  },
+  {
+   "edge_type": 1,
+   "index": 92,
+   "params": {},
+   "v1": 47,
+   "v2": 48
+  },
+  {
+   "edge_type": 1,
+   "index": 93,
+   "params": {},
+   "v1": 48,
+   "v2": 47
+  },
+  {
+   "edge_type": 1,
+   "index": 94,
+   "params": {},
+   "v1": 47,
+   "v2": 49
+  },
+  {
+   "edge_type": 1,
+   "index": 95,
+   "params": {},
+   "v1": 49,
+   "v2": 47
+  },
+  {
+   "edge_type": 1,
+   "index": 96,
+   "params": {},
+   "v1": 50,
+   "v2": 49
+  },
+  {
+   "edge_type": 1,
+   "index": 97,
+   "params": {},
+   "v1": 49,
+   "v2": 50
+  },
+  {
+   "edge_type": 1,
+   "index": 98,
+   "params": {},
+   "v1": 51,
+   "v2": 52
+  },
+  {
+   "edge_type": 1,
+   "index": 99,
+   "params": {},
+   "v1": 52,
+   "v2": 51
+  },
+  {
+   "edge_type": 1,
+   "index": 100,
+   "params": {},
+   "v1": 52,
+   "v2": 49
+  },
+  {
+   "edge_type": 1,
+   "index": 101,
+   "params": {},
+   "v1": 49,
+   "v2": 52
+  },
+  {
+   "edge_type": 1,
+   "index": 102,
+   "params": {},
+   "v1": 53,
+   "v2": 54
+  },
+  {
+   "edge_type": 1,
+   "index": 103,
+   "params": {},
+   "v1": 54,
+   "v2": 53
+  },
+  {
+   "edge_type": 1,
+   "index": 104,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L2_right_inner",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L2_right_inner"
+   },
+   "v1": 54,
+   "v2": 55
+  },
+  {
+   "edge_type": 1,
+   "index": 105,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "L2_right_inner",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "L2_right_inner"
+   },
+   "v1": 55,
+   "v2": 54
+  },
+  {
+   "edge_type": 1,
+   "index": 106,
+   "params": {},
+   "v1": 54,
+   "v2": 56
+  },
+  {
+   "edge_type": 1,
+   "index": 107,
+   "params": {},
+   "v1": 56,
+   "v2": 54
+  },
+  {
+   "edge_type": 1,
+   "index": 108,
+   "params": {},
+   "v1": 55,
+   "v2": 57
+  },
+  {
+   "edge_type": 1,
+   "index": 109,
+   "params": {},
+   "v1": 57,
+   "v2": 55
+  },
+  {
+   "edge_type": 1,
+   "index": 110,
+   "params": {},
+   "v1": 56,
+   "v2": 58
+  },
+  {
+   "edge_type": 1,
+   "index": 111,
+   "params": {},
+   "v1": 58,
+   "v2": 56
+  },
+  {
+   "edge_type": 1,
+   "index": 112,
+   "params": {},
+   "v1": 58,
+   "v2": 59
+  },
+  {
+   "edge_type": 1,
+   "index": 113,
+   "params": {},
+   "v1": 59,
+   "v2": 58
+  },
+  {
+   "edge_type": 1,
+   "index": 114,
+   "params": {},
+   "v1": 58,
+   "v2": 60
+  },
+  {
+   "edge_type": 1,
+   "index": 115,
+   "params": {},
+   "v1": 60,
+   "v2": 58
+  },
+  {
+   "edge_type": 1,
+   "index": 116,
+   "params": {},
+   "v1": 60,
+   "v2": 61
+  },
+  {
+   "edge_type": 1,
+   "index": 117,
+   "params": {},
+   "v1": 61,
+   "v2": 60
+  },
+  {
+   "edge_type": 1,
+   "index": 118,
+   "params": {},
+   "v1": 60,
+   "v2": 62
+  },
+  {
+   "edge_type": 1,
+   "index": 119,
+   "params": {},
+   "v1": 62,
+   "v2": 60
+  },
+  {
+   "edge_type": 1,
+   "index": 120,
+   "params": {},
+   "v1": 62,
+   "v2": 36
+  },
+  {
+   "edge_type": 1,
+   "index": 121,
+   "params": {},
+   "v1": 36,
+   "v2": 62
+  },
+  {
+   "edge_type": 1,
+   "index": 122,
+   "params": {},
+   "v1": 36,
+   "v2": 63
+  },
+  {
+   "edge_type": 1,
+   "index": 123,
+   "params": {},
+   "v1": 63,
+   "v2": 36
+  },
+  {
+   "edge_type": 1,
+   "index": 124,
+   "params": {},
+   "v1": 63,
+   "v2": 64
+  },
+  {
+   "edge_type": 1,
+   "index": 125,
+   "params": {},
+   "v1": 64,
+   "v2": 63
+  },
+  {
+   "edge_type": 1,
+   "index": 126,
+   "params": {},
+   "v1": 63,
+   "v2": 44
+  },
+  {
+   "edge_type": 1,
+   "index": 127,
+   "params": {},
+   "v1": 44,
+   "v2": 63
+  },
+  {
+   "edge_type": 1,
+   "index": 128,
+   "params": {},
+   "v1": 56,
+   "v2": 65
+  },
+  {
+   "edge_type": 1,
+   "index": 129,
+   "params": {},
+   "v1": 65,
+   "v2": 56
+  },
+  {
+   "edge_type": 1,
+   "index": 130,
+   "params": {},
+   "v1": 65,
+   "v2": 66
+  },
+  {
+   "edge_type": 1,
+   "index": 131,
+   "params": {},
+   "v1": 66,
+   "v2": 65
+  },
+  {
+   "edge_type": 1,
+   "index": 132,
+   "params": {},
+   "v1": 65,
+   "v2": 67
+  },
+  {
+   "edge_type": 1,
+   "index": 133,
+   "params": {},
+   "v1": 67,
+   "v2": 65
+  },
+  {
+   "edge_type": 1,
+   "index": 134,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "m",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "m"
+   },
+   "v1": 67,
+   "v2": 68
+  },
+  {
+   "edge_type": 1,
+   "index": 135,
+   "params": {
+    "entry_door_open_duration": 0,
+    "entry_door_open_name": "m",
+    "exit_door_close_duration": 0,
+    "exit_door_close_name": "m"
+   },
+   "v1": 68,
+   "v2": 67
+  },
+  {
+   "edge_type": 1,
+   "index": 136,
+   "params": {},
+   "v1": 67,
+   "v2": 69
+  },
+  {
+   "edge_type": 1,
+   "index": 137,
+   "params": {},
+   "v1": 69,
+   "v2": 67
+  },
+  {
+   "edge_type": 1,
+   "index": 138,
+   "params": {},
+   "v1": 69,
+   "v2": 70
+  },
+  {
+   "edge_type": 1,
+   "index": 139,
+   "params": {},
+   "v1": 70,
+   "v2": 69
+  },
+  {
+   "edge_type": 1,
+   "index": 140,
+   "params": {},
+   "v1": 70,
+   "v2": 71
+  },
+  {
+   "edge_type": 1,
+   "index": 141,
+   "params": {},
+   "v1": 71,
+   "v2": 70
+  },
+  {
+   "edge_type": 1,
+   "index": 142,
+   "params": {},
+   "v1": 70,
+   "v2": 72
+  },
+  {
+   "edge_type": 1,
+   "index": 143,
+   "params": {},
+   "v1": 72,
+   "v2": 70
+  },
+  {
+   "edge_type": 1,
+   "index": 144,
+   "params": {},
+   "v1": 72,
+   "v2": 73
+  },
+  {
+   "edge_type": 1,
+   "index": 145,
+   "params": {},
+   "v1": 73,
+   "v2": 72
+  },
+  {
+   "edge_type": 1,
+   "index": 146,
+   "params": {},
+   "v1": 72,
+   "v2": 41
+  },
+  {
+   "edge_type": 1,
+   "index": 147,
+   "params": {},
+   "v1": 41,
+   "v2": 72
+  },
+  {
+   "edge_type": 1,
+   "index": 148,
+   "params": {},
+   "v1": 53,
+   "v2": 52
+  },
+  {
+   "edge_type": 1,
+   "index": 149,
+   "params": {},
+   "v1": 52,
+   "v2": 53
+  },
+  {
+   "edge_type": 1,
+   "index": 150,
+   "params": {
+    "entry_lift_end_duration": 0,
+    "entry_lift_end_floor_name": "L2",
+    "entry_lift_end_lift_name": "lift_1"
+   },
+   "v1": 53,
+   "v2": 74
+  },
+  {
+   "edge_type": 1,
+   "index": 151,
+   "params": {
+    "entry_lift_door_open_duration": 0,
+    "entry_lift_door_open_floor_name": "L2",
+    "entry_lift_door_open_lift_name": "lift_1",
+    "exit_lift_end_duration": 0,
+    "exit_lift_end_floor_name": "L2",
+    "exit_lift_end_lift_name": "lift_1"
+   },
+   "v1": 74,
+   "v2": 53
+  },
+  {
+   "edge_type": 1,
+   "index": 152,
+   "params": {},
+   "v1": 68,
+   "v2": 75
+  },
+  {
+   "edge_type": 1,
+   "index": 153,
+   "params": {},
+   "v1": 75,
+   "v2": 68
+  },
+  {
+   "edge_type": 1,
+   "index": 154,
+   "params": {
+    "entry_lift_move_duration": 0,
+    "entry_lift_move_floor_name": "L2",
+    "entry_lift_move_lift_name": "lift_1"
+   },
+   "v1": 29,
+   "v2": 74
+  },
+  {
+   "edge_type": 1,
+   "index": 155,
+   "params": {
+    "entry_lift_move_duration": 0,
+    "entry_lift_move_floor_name": "L1",
+    "entry_lift_move_lift_name": "lift_1"
+   },
+   "v1": 74,
+   "v2": 29
+  },
+  {
+   "edge_type": 1,
+   "index": 156,
+   "params": {
+    "entry_lift_move_duration": 0,
+    "entry_lift_move_floor_name": "L2",
+    "entry_lift_move_lift_name": "lift_25"
+   },
+   "v1": 14,
+   "v2": 38
+  },
+  {
+   "edge_type": 1,
+   "index": 157,
+   "params": {
+    "entry_lift_move_duration": 0,
+    "entry_lift_move_floor_name": "L1",
+    "entry_lift_move_lift_name": "lift_25"
+   },
+   "v1": 38,
+   "v2": 14
+  }
+ ],
+ "source": "/nav_graphs",
+ "vertices": [
+  {
+   "index": 0,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 30.946428298950195,
+   "y": -11.543929100036621
+  },
+  {
+   "index": 1,
+   "name": "L1_sub_waiting_area_4",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 30.972434997558594,
+   "y": -13.938483238220215
+  },
+  {
+   "index": 2,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 13.238967895507812,
+   "y": -13.514083862304688
+  },
+  {
+   "index": 3,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 15.541017532348633,
+   "y": -11.628302574157715
+  },
+  {
+   "index": 4,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 21.45557403564453,
+   "y": -11.595915794372559
+  },
+  {
+   "index": 5,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 21.48187828063965,
+   "y": -14.80311107635498
+  },
+  {
+   "index": 6,
+   "name": "L1_left_nurse_center",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 21.52379608154297,
+   "y": -19.625898361206055
+  },
+  {
+   "index": 7,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 13.209784507751465,
+   "y": -26.765220642089844
+  },
+  {
+   "index": 8,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 13.312114715576172,
+   "y": -31.724933624267578
+  },
+  {
+   "index": 9,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 13.460078239440918,
+   "y": -33.784793853759766
+  },
+  {
+   "index": 10,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 16.891103744506836,
+   "y": -40.32176208496094
+  },
+  {
+   "index": 11,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 16.90329933166504,
+   "y": -43.10445022583008
+  },
+  {
+   "index": 12,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 15.04360580444336,
+   "y": -36.80181121826172
+  },
+  {
+   "index": 13,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 15.710384368896484,
+   "y": -38.072208404541016
+  },
+  {
+   "index": 14,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": true,
+    "map_name": "L1"
+   },
+   "x": 7.538171768188477,
+   "y": -43.69447326660156
+  },
+  {
+   "index": 15,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 9.610199928283691,
+   "y": -41.47370147705078
+  },
+  {
+   "index": 16,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 35.31684494018555,
+   "y": -43.35143280029297
+  },
+  {
+   "index": 17,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 11.19308090209961,
+   "y": -43.0401611328125
+  },
+  {
+   "index": 18,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 39.0458984375,
+   "y": -43.33939743041992
+  },
+  {
+   "index": 19,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 40.18531799316406,
+   "y": -42.639076232910156
+  },
+  {
+   "index": 20,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 41.94012451171875,
+   "y": -41.560523986816406
+  },
+  {
+   "index": 21,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 49.07858657836914,
+   "y": -37.173011779785156
+  },
+  {
+   "index": 22,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 49.046817779541016,
+   "y": -34.490177154541016
+  },
+  {
+   "index": 23,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 49.014617919921875,
+   "y": -31.07651710510254
+  },
+  {
+   "index": 24,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 48.87314224243164,
+   "y": -19.828649520874023
+  },
+  {
+   "index": 25,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 48.80002212524414,
+   "y": -13.657605171203613
+  },
+  {
+   "index": 26,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 48.86366653442383,
+   "y": -11.44579792022705
+  },
+  {
+   "index": 27,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 43.055667877197266,
+   "y": -11.477620124816895
+  },
+  {
+   "index": 28,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 43.04487228393555,
+   "y": -10.445833206176758
+  },
+  {
+   "index": 29,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": true,
+    "map_name": "L1"
+   },
+   "x": 43.07526779174805,
+   "y": -7.430483341217041
+  },
+  {
+   "index": 30,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 41.03468322753906,
+   "y": -11.48868465423584
+  },
+  {
+   "index": 31,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 40.92788314819336,
+   "y": -15.613303184509277
+  },
+  {
+   "index": 32,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 36.847686767578125,
+   "y": -11.511622428894043
+  },
+  {
+   "index": 33,
+   "name": "L1_sub_waiting_area_3",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 36.86968231201172,
+   "y": -10.033252716064453
+  },
+  {
+   "index": 34,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 32.97713088989258,
+   "y": -11.53281021118164
+  },
+  {
+   "index": 35,
+   "name": "L1_right_nurse_center",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L1"
+   },
+   "x": 40.9051628112793,
+   "y": -20.215194702148438
+  },
+  {
+   "index": 36,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 33.42594909667969,
+   "y": -33.670536041259766
+  },
+  {
+   "index": 37,
+   "name": "L2_sub_waiting_area_4",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 31.129390716552734,
+   "y": -33.77873611450195
+  },
+  {
+   "index": 38,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": true,
+    "map_name": "L2"
+   },
+   "x": 7.538171768188477,
+   "y": -43.69447326660156
+  },
+  {
+   "index": 39,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 9.286866188049316,
+   "y": -42.016639709472656
+  },
+  {
+   "index": 40,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 17.101177215576172,
+   "y": -43.5714111328125
+  },
+  {
+   "index": 41,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 17.066635131835938,
+   "y": -40.41951370239258
+  },
+  {
+   "index": 42,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 35.741485595703125,
+   "y": -43.523006439208984
+  },
+  {
+   "index": 43,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 39.09134292602539,
+   "y": -43.5142822265625
+  },
+  {
+   "index": 44,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 40.735069274902344,
+   "y": -42.40665817260742
+  },
+  {
+   "index": 45,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 44.72154998779297,
+   "y": -39.7203483581543
+  },
+  {
+   "index": 46,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 49.15848922729492,
+   "y": -36.73046875
+  },
+  {
+   "index": 47,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 49.155311584472656,
+   "y": -28.196691513061523
+  },
+  {
+   "index": 48,
+   "name": "L2_east_counter",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 54.658016204833984,
+   "y": -28.38633155822754
+  },
+  {
+   "index": 49,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 49.14963150024414,
+   "y": -12.921314239501953
+  },
+  {
+   "index": 50,
+   "name": "tinyRobot_2_charger",
+   "params": {
+    "is_charger": true,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 54.789371490478516,
+   "y": -12.921314239501953
+  },
+  {
+   "index": 51,
+   "name": "tinyRobot_1_charger",
+   "params": {
+    "is_charger": true,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 54.763282775878906,
+   "y": -10.80007266998291
+  },
+  {
+   "index": 52,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 49.148826599121094,
+   "y": -10.758909225463867
+  },
+  {
+   "index": 53,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 43.12937927246094,
+   "y": -10.751398086547852
+  },
+  {
+   "index": 54,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 40.9598388671875,
+   "y": -10.748705863952637
+  },
+  {
+   "index": 55,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 40.709251403808594,
+   "y": -17.12187957763672
+  },
+  {
+   "index": 56,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 32.761810302734375,
+   "y": -10.738475799560547
+  },
+  {
+   "index": 57,
+   "name": "L2_right_nurse_center",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 40.58990478515625,
+   "y": -20.370454788208008
+  },
+  {
+   "index": 58,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 32.69878387451172,
+   "y": -17.24860191345215
+  },
+  {
+   "index": 59,
+   "name": "L2_sub_waiting_area_2",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 30.997446060180664,
+   "y": -17.255064010620117
+  },
+  {
+   "index": 60,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 32.575077056884766,
+   "y": -27.47733497619629
+  },
+  {
+   "index": 61,
+   "name": "L2_sub_waiting_area_3",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 31.038583755493164,
+   "y": -27.456201553344727
+  },
+  {
+   "index": 62,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 32.53558349609375,
+   "y": -30.742036819458008
+  },
+  {
+   "index": 63,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 35.11145782470703,
+   "y": -39.21429443359375
+  },
+  {
+   "index": 64,
+   "name": "L2_south_counter",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 35.11145782470703,
+   "y": -40.68612289428711
+  },
+  {
+   "index": 65,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 30.05328941345215,
+   "y": -10.73508358001709
+  },
+  {
+   "index": 66,
+   "name": "L2_north_counter",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 30.084089279174805,
+   "y": -8.143810272216797
+  },
+  {
+   "index": 67,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 21.07831573486328,
+   "y": -10.723910331726074
+  },
+  {
+   "index": 68,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 21.23815155029297,
+   "y": -15.752274513244629
+  },
+  {
+   "index": 69,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 14.692354202270508,
+   "y": -10.715941429138184
+  },
+  {
+   "index": 70,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 12.06721305847168,
+   "y": -17.458162307739258
+  },
+  {
+   "index": 71,
+   "name": "L2_west_counter",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 8.268620491027832,
+   "y": -17.521995544433594
+  },
+  {
+   "index": 72,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 12.408745765686035,
+   "y": -33.622802734375
+  },
+  {
+   "index": 73,
+   "name": "L2_sub_waiting_area_1",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 8.123322486877441,
+   "y": -33.645469665527344
+  },
+  {
+   "index": 74,
+   "name": "",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": false,
+    "is_parking_spot": false,
+    "is_passthrough_point": true,
+    "map_name": "L2"
+   },
+   "x": 43.07526779174805,
+   "y": -7.430483341217041
+  },
+  {
+   "index": 75,
+   "name": "L2_left_nurse_center",
+   "params": {
+    "is_charger": false,
+    "is_holding_point": true,
+    "is_parking_spot": true,
+    "is_passthrough_point": false,
+    "map_name": "L2"
+   },
+   "x": 21.515098571777344,
+   "y": -19.814165115356445
+  }
+ ]
+}

@@ -1,0 +1,202 @@
+{
+ "scenario": "s2_e42",
+ "config": "C",
+ "started": "2026-10-29T16:01:16.102407+00:00",
+ "clock_start": "10:26:30",
+ "observations": {
+  "robot_tasks": {
+   "O2-S2": {
+    "robot": "deliveryRobot/deliveryRobot_2",
+    "handovers": [
+     {
+      "at": "10:32:11",
+      "from": "deliveryRobot/deliveryRobot_1",
+      "to": "deliveryRobot/deliveryRobot_2",
+      "task": "patrol.dispatch-397af9508c"
+     }
+    ],
+    "task_id": "patrol.dispatch-397af9508c",
+    "error": null,
+    "sent": "10:28:35",
+    "arrivals": {
+     "L1_left_treatment_1": "10:34:04"
+    },
+    "delivered": "10:34:04",
+    "due": "10:40:30",
+    "on_time": true,
+    "lift_waits": [
+     {
+      "lift": "lift_1",
+      "requested": "10:30:28",
+      "granted": "10:30:28",
+      "wait_s": 0
+     }
+    ]
+   }
+  },
+  "porters": {
+   "transport_system-4472": {
+    "lift": "lift_1",
+    "requested": "10:28:55",
+    "granted": "10:29:11",
+    "released": "10:30:14",
+    "delay_s": 16
+   }
+  },
+  "faults": {
+   "lift_1": {
+    "code": "E-42",
+    "reported": "10:31:45",
+    "held_from": "10:31:46",
+    "cleared": true
+   }
+  },
+  "core_conflicts": [
+   {
+    "conflict_id": "cf-f3c9422f28b91e30",
+    "kind": "overlap",
+    "segment_urn": "segment/lift_1",
+    "claim_ids": [
+     "cl-5739709109e01250",
+     "cl-92429ae772c58b03",
+     "cl-940a919d6d2af36d"
+    ],
+    "job_urns": [
+     "job/delivery_requests-O2-S2",
+     "job/transport_system-4472"
+    ],
+    "window": {
+     "start": "2026-10-29T16:04:32.257305Z",
+     "end": "2026-10-29T16:07:18.931334Z"
+    },
+    "detected_at": "2026-10-29T16:03:24.931334Z",
+    "seen_at": "2026-10-29T16:03:26.435733+00:00"
+   }
+  ],
+  "core_incidents": [],
+  "core_plans": [
+   {
+    "plan_id": "fl-lift-out-of-service-lift_1-160631",
+    "producer": "fast_lane",
+    "decision_latency_ms": 37.4,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "close_lanes",
+      "window": null,
+      "fleet_name": "tinyRobot",
+      "segment_urn": "segment/lift_1"
+     }
+    ],
+    "rationale": "Playbook lift-out-of-service: lift_1 reported OFFLINE E-42 by the building's lift monitoring; robots kept out of it until it is back in service.",
+    "created_at": "2026-10-29T16:06:31.146490+00:00"
+   },
+   {
+    "plan_id": "ag-fault-lift_1-160631-160647",
+    "producer": "agent",
+    "decision_latency_ms": 16363.7,
+    "llm": {
+     "models": [
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "nvidia/nemotron-3-super-120b-a12b"
+     ],
+     "calls": 3,
+     "tokens": 3914,
+     "llm_ms": 13784,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "submit_task",
+      "window": null,
+      "job_urn": "job/delivery_requests-O2-S2",
+      "payload": "oxygen",
+      "fleet_name": "deliveryRobot",
+      "pickup_place": "L1_sub_waiting_area_2",
+      "dropoff_place": "L1_left_treatment_1",
+      "earliest_start": null,
+      "replaces_task_id": "auspex_check_ba541d6cd6ef"
+     },
+     {
+      "action": "notify",
+      "window": null,
+      "job_urn": "job/delivery_requests-O2-S2",
+      "message": "Your oxygen: on its way, new ETA 16:07.",
+      "new_eta": "2026-10-29T16:07:54.185518Z",
+      "recipient_urn": "person/staff-alex"
+     }
+    ],
+    "rationale": "[nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B, nvidia/nemotron-3-super-120b-a12b] Lift lift_1 OFFLINE E-42: expected outage None s (No extractable evidence provided; cannot determine outage duration or technician requirement.) Option handover-5 meets the deadline (meets_highest true) with zero lateness and requires only one intervention (submit_task). It has the earliest estimated arrival time (16:07:54) among the handover options, minimizing delay. Alternative resource-2 needs two interventions and wait-1 misses the deadline.",
+    "created_at": "2026-10-29T16:06:47.482343+00:00"
+   }
+  ],
+  "core_reports": [],
+  "core_providers": {
+   "config": "C",
+   "llm_provider": "tokenfactory",
+   "search_provider": "tavily"
+  },
+  "core_jobs": {
+   "job/delivery_requests-O2-S2": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4472": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S1": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4471": {
+    "destination": null,
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S3": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-5001": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-5002": {
+    "destination": "zone/imaging-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   }
+  },
+  "core_interpretations": []
+ },
+ "checks": [
+  {
+   "ok": true,
+   "check": "plan with ['close_lanes', 'submit_task']  (agent) applied and verified: ['ag-fault-lift_1-160631-160647'], expected True (reroute or handover, never waiting for a lift that needs a technician)"
+  },
+  {
+   "ok": true,
+   "check": "O2-S2 delivered 10:34:04 (due 10:40:30); on time = True, expected True"
+  }
+ ]
+}

@@ -1,0 +1,94 @@
+# Zones (spec 3.2): rooms, wards and departments. `codes` are the structured location codes the
+# hospital's systems send (intake maps these deterministically); `aliases` are the free-text
+# names staff type (context for Nemotron and for validating its interpretation, never used by
+# intake), mapped to named waypoints in the fleets' graphs (best first). FICTIONAL
+# hospital laid over the rmf_demos clinic: west side (lift_25) = Ward 2B, Imaging, Ward 1A;
+# east side (lift_1) = Ward 2A, Emergency Department.
+
+zones:
+  # ---- L2
+  - urn: zone/ward-2b
+    codes: [L2-W2B]
+    name: "Ward 2B"
+    destination_type: ward
+    kind: ward
+    level: L2
+    aliases: ["2B", "W2B", "Ward 2 B", "Ward-2B", "Surgical Ward 2B"]
+    waypoints: [L2_west_counter, L2_sub_waiting_area_1]
+    segments: [segment/lift_25-lobby-L2]
+  - urn: zone/ward-2a
+    codes: [L2-W2A]
+    name: "Ward 2A"
+    destination_type: ward
+    kind: ward
+    level: L2
+    aliases: ["2A", "W2A", "Ward 2 A", "Ward-2A", "Medical Ward 2A"]
+    waypoints: [L2_east_counter]
+    segments: [segment/lift_1-lobby-L2]
+  - urn: zone/o2-store-L2
+    codes: [L2-O2]
+    name: "Oxygen store L2"
+    kind: supply_point
+    supplies: [oxygen]
+    level: L2
+    aliases: ["O2 store L2", "Oxygen L2", "Level 2 oxygen point"]
+    waypoints: [L2_sub_waiting_area_1]
+  - urn: zone/o2-store-L2-east
+    codes: [L2-O2E]
+    name: "Oxygen store L2 east"
+    kind: supply_point
+    supplies: [oxygen]
+    level: L2
+    aliases: ["O2 store L2 east", "East oxygen point L2"]
+    waypoints: [L2_north_counter]
+  - urn: zone/nurse-station-L2
+    codes: [L2-NS]
+    name: "Nurse station L2"
+    kind: station
+    level: L2
+    aliases: ["NS2", "Level 2 nurse station"]
+    waypoints: [L2_left_nurse_center]
+
+  # ---- L1
+  - urn: zone/imaging-L1
+    codes: [L1-IMG]
+    name: "Imaging"
+    destination_type: imaging
+    kind: department
+    level: L1
+    aliases: ["CT 2", "CT2", "CT Room 2", "CT scanner 2", "Radiology Level 1",
+              "Radiology L1", "Imaging L1", "Diagnostic Imaging"]
+    waypoints: [L1_left_negative_air_pressure]
+    segments: [segment/lift_25-lobby-L1]
+  - urn: zone/ed-L1
+    codes: [L1-ED]
+    name: "Emergency Department"
+    destination_type: emergency_department
+    kind: department
+    level: L1
+    aliases: ["ED", "Emergency", "A&E", "Accident and Emergency", "Resus", "ER"]
+    waypoints: [L1_right_procedure, L1_right_treatment]
+    segments: [segment/lift_1-lobby-L1]
+  - urn: zone/ward-1a-bed-12
+    codes: [L1-W1A-12]
+    name: "Ward 1A, bed 12"
+    destination_type: ward
+    kind: bed
+    level: L1
+    aliases: ["Bed 12", "1A-12", "1A bed 12", "Ward 1A bed 12"]
+    waypoints: [L1_left_treatment_1]
+  - urn: zone/o2-store-L1
+    codes: [L1-O2]
+    name: "Oxygen store L1"
+    kind: supply_point
+    supplies: [oxygen]
+    level: L1
+    aliases: ["O2 store L1", "Oxygen L1", "Level 1 oxygen point"]
+    waypoints: [L1_sub_waiting_area_2]
+  - urn: zone/nurse-station-L1
+    codes: [L1-NS]
+    name: "Nurse station L1"
+    kind: station
+    level: L1
+    aliases: ["NS1", "Level 1 nurse station"]
+    waypoints: [L1_left_nurse_center]

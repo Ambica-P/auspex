@@ -1,0 +1,17 @@
+# Equipment vendors and where their service bulletins live (FICTIONAL vendors, spec 12).
+# advisory_path is relative to VENDOR_SITE_URL (the published copy of sim/vendor_site/);
+# Tavily searches are restricted to that site's domain. The local search provider reads the
+# same files from sim/vendor_site/ directly.
+vendors:
+  vendor/ascendia-lifts:
+    name: Ascendia Lifts
+    advisory_path: ascendia-lifts/
+    products: [AL-300, AL-320B]
+  vendor/jane-robotics:
+    name: Jane Robotics
+    advisory_path: jane-robotics/
+    products: [JR-D2, JR-T1]
+  vendor/rohan-bedside:
+    name: Rohan Bedside Systems
+    advisory_path: rohan-bedside/
+    products: [RB-1]

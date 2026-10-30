@@ -1,0 +1,11 @@
+# Source priority -> precedence class. Deterministic; first matching entry wins.
+# Matching on source_priority is case-insensitive. An unmapped priority is an error,
+# never a guess. Authored by the hospital.
+priority_mapping:
+  - {source_priority: Code, class: code}
+  - {source_priority: Stat, destination_type: emergency_department, class: stat}
+  - {source_priority: Stat, class: stat}
+  - {source: delivery_requests, source_priority: Critical, class: critical}
+  - {source_priority: High, class: urgent}
+  - {source_priority: Normal, class: routine}
+  - {source_priority: Low, class: return}

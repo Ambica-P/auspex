@@ -1,0 +1,76 @@
+# Human route table (spec 3.2): how porters move between zones. Legs are in order; a leg
+# with `segment: null` is walking that claims no tracked segment. Durations are nominal
+# seconds for a BED transport; other modes scale by mode_factors. A route that uses a lift
+# is unusable for a bed or bariatric transport when the lift's attributes rule it out
+# (segments.yaml); `conditions` can restrict a route further. FICTIONAL values.
+
+# Forecast timing: a porter starts the route status_lead_s[status] after the job's status
+# time (picked_up: at the status time; a status not listed here gets no forecast, so a bare
+# "requested" job claims nothing yet). Claims carry status_confidence[status] and are widened
+# by pad_s on both sides. Durations below are for a bed; mode_factors scale other modes.
+status_lead_s: {assigned: 300, responding: 60, delayed: 120}
+status_confidence: {assigned: 0.5, responding: 0.7, picked_up: 0.85, delayed: 0.5}
+pad_s: 30
+mode_factors: {bed: 1.0, stretcher: 1.0, wheelchair: 0.8, walking: 0.6}
+bed_modes: [bed, stretcher]
+
+# When a transport is expected to start moving, by its current status (seconds after the
+# status time), and how sure the forecast is. Transport systems record no live position.
+status_lead_s: {requested: 600, assigned: 300, responding: 90, picked_up: 0, delayed: 300}
+status_confidence: {requested: 0.4, assigned: 0.6, responding: 0.8, picked_up: 0.9, delayed: 0.5}
+
+routes:
+  - id: ward-2b_to_imaging_via_lift_25
+    origin: zone/ward-2b
+    destination: zone/imaging-L1
+    legs:
+      - {segment: null, duration_s: 35}
+      - {segment: segment/lift_25-lobby-L2, duration_s: 25}
+      - {segment: segment/lift_25, duration_s: 240}
+      - {segment: segment/lift_25-lobby-L1, duration_s: 20}
+      - {segment: null, duration_s: 30}
+  - id: ward-2b_to_imaging_via_lift_1
+    origin: zone/ward-2b
+    destination: zone/imaging-L1
+    legs:
+      - {segment: null, duration_s: 60}
+      - {segment: segment/lift_1-lobby-L2, duration_s: 25}
+      - {segment: segment/lift_1, duration_s: 240}
+      - {segment: segment/lift_1-lobby-L1, duration_s: 20}
+      - {segment: null, duration_s: 70}
+  - id: ward-2a_to_ed_via_lift_1
+    origin: zone/ward-2a
+    destination: zone/ed-L1
+    legs:
+      - {segment: null, duration_s: 30}
+      - {segment: segment/lift_1-lobby-L2, duration_s: 25}
+      - {segment: segment/lift_1, duration_s: 200}
+      - {segment: segment/lift_1-lobby-L1, duration_s: 20}
+      - {segment: null, duration_s: 20}
+  - id: ward-2a_to_ed_via_lift_25
+    origin: zone/ward-2a
+    destination: zone/ed-L1
+    legs:
+      - {segment: null, duration_s: 80}
+      - {segment: segment/lift_25-lobby-L2, duration_s: 25}
+      - {segment: segment/lift_25, duration_s: 200}
+      - {segment: segment/lift_25-lobby-L1, duration_s: 20}
+      - {segment: null, duration_s: 75}
+  - id: ward-2b_to_ed_via_lift_25
+    origin: zone/ward-2b
+    destination: zone/ed-L1
+    legs:
+      - {segment: null, duration_s: 35}
+      - {segment: segment/lift_25-lobby-L2, duration_s: 25}
+      - {segment: segment/lift_25, duration_s: 200}
+      - {segment: segment/lift_25-lobby-L1, duration_s: 20}
+      - {segment: null, duration_s: 75}
+  - id: ward-2b_to_ed_via_lift_1
+    origin: zone/ward-2b
+    destination: zone/ed-L1
+    legs:
+      - {segment: null, duration_s: 60}
+      - {segment: segment/lift_1-lobby-L2, duration_s: 25}
+      - {segment: segment/lift_1, duration_s: 200}
+      - {segment: segment/lift_1-lobby-L1, duration_s: 20}
+      - {segment: null, duration_s: 20}

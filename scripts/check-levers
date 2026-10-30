@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Milestone 2 lever checks against the running simulation (start it with scripts/run-sim).
+# Usage: scripts/check-levers api | places | lanes | route | interrupt  [options]
+#        scripts/check-levers --help
+source "$(dirname "$0")/_lib.sh"
+source_ros
+RMF_API_BASE="$(env_value RMF_API_BASE http://127.0.0.1:8000)"
+RMF_API_TOKEN="$(env_value RMF_API_TOKEN)"
+export RMF_API_BASE RMF_API_TOKEN
+exec python3 "$REPO_ROOT/rmf_adapter_ext/check_levers.py" "$@"

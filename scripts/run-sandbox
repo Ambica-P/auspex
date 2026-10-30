@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Decision sandbox (spec 14.6), locally. Builds the S1 snapshot from web/public/replays/s1-C.json if
+# missing, then serves the API on http://127.0.0.1:8095 (no ROS, no database).
+# Usage: scripts/run-sandbox [--check] [--fake]
+#   --check  run the four examples once and exit     --fake  use the stand-in model (no key)
+# The sandbox reads NEBIUS_API_BASE, MODEL_TRIAGE and the key from .env; in deployment it gets a
+# dedicated key (SANDBOX_NEBIUS_API_KEY here, or NEBIUS_API_KEY in the container).
+source "$(dirname "$0")/_lib.sh"
+require_env_file
+check=0; llm=tokenfactory
+for a in "$@"; do
+  case "$a" in
+    --check) check=1 ;;
+    --fake) llm=fake ;;
+    *) die "unknown option $a" ;;
+  esac
+done
+[[ -f sandbox/snapshots/s1.json ]] || uv run --frozen python -m sandbox.snapshot || exit 1
+key="$(env_value SANDBOX_NEBIUS_API_KEY)"; [[ -n "$key" ]] || key="$(env_value NEBIUS_API_KEY)"
+export SANDBOX_LLM="$llm" SANDBOX_ENABLED=true
+export NEBIUS_API_BASE="$(env_value NEBIUS_API_BASE)" MODEL_TRIAGE="$(env_value MODEL_TRIAGE)" NEBIUS_API_KEY="$key"
+export SANDBOX_ALLOWED_ORIGIN="$(env_value SANDBOX_ALLOWED_ORIGIN http://127.0.0.1:8090)"
+export SANDBOX_DAILY_CAP="$(env_value SANDBOX_DAILY_CAP 300)" SANDBOX_RATE_PER_IP_PER_MIN="$(env_value SANDBOX_RATE_PER_IP_PER_MIN 6)"
+export SANDBOX_BUDGET_USD="$(env_value SANDBOX_BUDGET_USD 0.02)"
+export SANDBOX_PRICE_IN_PER_MTOK="$(env_value SANDBOX_PRICE_IN_PER_MTOK)" SANDBOX_PRICE_OUT_PER_MTOK="$(env_value SANDBOX_PRICE_OUT_PER_MTOK)"
+[[ "$llm" == fake || -n "$SANDBOX_PRICE_IN_PER_MTOK" ]] || die "set SANDBOX_PRICE_IN_PER_MTOK and SANDBOX_PRICE_OUT_PER_MTOK in .env (Nano's prices per million tokens, from the Nebius console) for the \$${SANDBOX_BUDGET_USD} budget cap"
+if [[ $check -eq 1 ]]; then exec uv run --frozen python -m sandbox.check; fi
+echo "sandbox: http://127.0.0.1:8095 (LLM $llm; CORS $SANDBOX_ALLOWED_ORIGIN)"
+exec uv run --frozen uvicorn sandbox.app:app --host 127.0.0.1 --port 8095

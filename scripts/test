@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Static checks and the spec 18.4 tests. Database tests need Postgres up and TEST_* in .env.
+source "$(dirname "$0")/_lib.sh"
+# The project needs no auto-loaded pytest plugins (ROS ships some, e.g. launch_testing).
+export PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+uv run --frozen ruff check src tests migrations rmf_adapter_ext ros_bridge sim hospital_mock bench
+uv run --frozen ruff format --check src tests migrations rmf_adapter_ext ros_bridge sim hospital_mock bench
+uv run --frozen mypy
+uv run --frozen pytest -rs "$@"

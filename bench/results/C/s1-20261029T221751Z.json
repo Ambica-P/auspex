@@ -1,0 +1,212 @@
+{
+ "scenario": "s1",
+ "config": "C",
+ "started": "2026-10-29T22:17:51.396472+00:00",
+ "clock_start": "10:26:30",
+ "observations": {
+  "robot_tasks": {
+   "O2-S1": {
+    "robot": "deliveryRobot/deliveryRobot_1",
+    "handovers": [],
+    "task_id": "auspex_check_a46b688bf57d",
+    "error": null,
+    "sent": "10:27:06",
+    "arrivals": {
+     "L2_sub_waiting_area_1": "10:31:50",
+     "L1_left_treatment_1": "10:35:35"
+    },
+    "delivered": "10:35:35",
+    "due": "10:40:00",
+    "on_time": true,
+    "lift_waits": [
+     {
+      "lift": "lift_1",
+      "requested": "10:29:29",
+      "granted": "10:29:29",
+      "wait_s": 0
+     },
+     {
+      "lift": "lift_1",
+      "requested": "10:33:35",
+      "granted": "10:33:35",
+      "wait_s": 0
+     }
+    ]
+   }
+  },
+  "porters": {
+   "transport_system-4471": {
+    "lift": "lift_25",
+    "requested": "10:30:00",
+    "granted": "10:30:14",
+    "released": "10:33:34",
+    "delay_s": 14
+   }
+  },
+  "faults": {},
+  "core_conflicts": [
+   {
+    "conflict_id": "cf-2418bfd12a9acf02",
+    "kind": "overlap",
+    "segment_urn": "segment/lift_25",
+    "claim_ids": [
+     "cl-8fc861576e974bf2",
+     "cl-bf98e16b6b0be8dc"
+    ],
+    "job_urns": [
+     "job/delivery_requests-O2-S1",
+     "job/transport_system-4471"
+    ],
+    "window": {
+     "start": "2026-10-29T22:24:01.396472Z",
+     "end": "2026-10-29T22:24:04.190717Z"
+    },
+    "detected_at": "2026-10-29T22:18:50.641569Z",
+    "seen_at": "2026-10-29T22:18:51.306305+00:00"
+   }
+  ],
+  "core_incidents": [
+   {
+    "incident_id": "inc-deliveryRobot-deliveryRobot_1-1793312338",
+    "robot_urn": "robot/deliveryRobot-deliveryRobot_1",
+    "rmf_task_id": "auspex_check_a46b688bf57d",
+    "job_urn": "job/delivery_requests-O2-S1",
+    "segment_urn": "segment/door-L1_clinic_a",
+    "detected_at": "2026-10-29T22:18:58.670551Z",
+    "trigger": "eta_slip",
+    "stakes": {
+     "due_at": "2026-10-29T22:31:21.396472Z",
+     "slack_s": 231.744194,
+     "payload": "oxygen",
+     "precedence": "critical"
+    },
+    "status": "open",
+    "plan_id": null,
+    "outcome": null,
+    "report": null,
+    "context": {},
+    "seen_at": "2026-10-29T22:18:59.451525+00:00"
+   }
+  ],
+  "core_plans": [
+   {
+    "plan_id": "fl-clear-for-code-stat-cf-2418bfd12a9acf02-221850",
+    "producer": "fast_lane",
+    "decision_latency_ms": 36.9,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "REVIEW",
+    "rule_ids": [
+     "inferred-claims-need-confidence"
+    ],
+    "actions": [
+     {
+      "action": "close_lanes",
+      "window": {
+       "end": "2026-10-29T22:29:31.396472Z",
+       "start": "2026-10-29T22:18:50.674190Z"
+      },
+      "fleet_name": "deliveryRobot",
+      "segment_urn": "segment/lift_25"
+     },
+     {
+      "action": "replan_robot",
+      "window": null,
+      "fleet_name": "deliveryRobot",
+      "robot_name": "deliveryRobot_1"
+     }
+    ],
+    "rationale": "Playbook clear-for-code-stat: STAT transport 4471 needs segment/lift_25 until 22:29:31 UTC; robot deliveryRobot_1 rerouted (ETA 22:27:09 UTC).",
+    "created_at": "2026-10-29T22:18:50.678997+00:00"
+   },
+   {
+    "plan_id": "fl-notify-stalled-delivery-inc-deliveryRobot-deliveryRobot_1-1793312338-221858",
+    "producer": "fast_lane",
+    "decision_latency_ms": 55.9,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "notify",
+      "window": null,
+      "job_urn": "job/delivery_requests-O2-S1",
+      "message": "Your delivery's robot has stopped (eta_slip); Auspex is working on it.",
+      "new_eta": "2026-10-29T22:27:29.652278Z",
+      "recipient_urn": "person/staff-alex"
+     }
+    ],
+    "rationale": "Playbook notify-stalled-delivery: eta_slip on a critical delivery; requester told.",
+    "created_at": "2026-10-29T22:18:58.717237+00:00"
+   }
+  ],
+  "core_reports": [],
+  "core_providers": {
+   "config": "C",
+   "llm_provider": "tokenfactory",
+   "search_provider": "tavily"
+  },
+  "core_jobs": {
+   "job/delivery_requests-O2-S1": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4471": {
+    "destination": "zone/imaging-L1",
+    "inferred_fields": [
+     "destination"
+    ],
+    "inference_confidence": 0.95
+   }
+  },
+  "core_interpretations": [
+   {
+    "urn": "job/transport_system-4471",
+    "destination": "zone/imaging-L1",
+    "models": [
+     "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"
+    ],
+    "calls": 1,
+    "tokens": 1076
+   }
+  ]
+ },
+ "checks": [
+  {
+   "ok": true,
+   "check": "transport_system-4471 destination inferred as zone/imaging-L1 (confidence 0.95), expected zone/imaging-L1: True"
+  },
+  {
+   "ok": true,
+   "check": "conflict on segment/lift_25 between ['transport_system-4471', 'O2-S1']: detected = True, expected True"
+  },
+  {
+   "ok": true,
+   "check": "plan with ['close_lanes'] segment/lift_25 (any producer) applied and verified: ['fl-clear-for-code-stat-cf-2418bfd12a9acf02-221850'], expected True (lift_25 kept clear of deliveryRobot over the porter's window; Robot A replans)"
+  },
+  {
+   "ok": true,
+   "check": "porter transport_system-4471 delayed 14 s (<= 30; the Stat transport is not delayed by the robot)"
+  },
+  {
+   "ok": true,
+   "check": "O2-S1 delivered 10:35:35 (due 10:40:00); on time = True, expected None"
+  }
+ ]
+}

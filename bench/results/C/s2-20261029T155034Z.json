@@ -1,0 +1,276 @@
+{
+ "scenario": "s2",
+ "config": "C",
+ "started": "2026-10-29T15:50:34.273939+00:00",
+ "clock_start": "10:26:30",
+ "observations": {
+  "robot_tasks": {
+   "O2-S2": {
+    "robot": "deliveryRobot/deliveryRobot_1",
+    "handovers": [],
+    "task_id": "auspex_check_2cda667cba69",
+    "error": null,
+    "sent": "10:28:35",
+    "arrivals": {
+     "L2_north_counter": "10:31:43",
+     "L1_left_treatment_1": "10:35:56"
+    },
+    "delivered": "10:35:56",
+    "due": "10:40:30",
+    "on_time": true,
+    "lift_waits": [
+     {
+      "lift": "lift_1",
+      "requested": "10:30:27",
+      "granted": "10:30:27",
+      "wait_s": 0
+     },
+     {
+      "lift": "lift_1",
+      "requested": "10:32:24",
+      "granted": "10:33:46",
+      "wait_s": 82
+     }
+    ]
+   }
+  },
+  "porters": {
+   "transport_system-4472": {
+    "lift": "lift_1",
+    "requested": "10:28:55",
+    "granted": "10:29:08",
+    "released": "10:30:12",
+    "delay_s": 13
+   }
+  },
+  "faults": {
+   "lift_1": {
+    "code": "E-17",
+    "reported": "10:31:45",
+    "held_from": "10:31:46",
+    "cleared": true
+   }
+  },
+  "core_conflicts": [
+   {
+    "conflict_id": "cf-f3c9422f28b91e30",
+    "kind": "overlap",
+    "segment_urn": "segment/lift_1",
+    "claim_ids": [
+     "cl-759a4a0583559b1a",
+     "cl-82f9ca16528f0a9b",
+     "cl-fd1bf4fedf72e995"
+    ],
+    "job_urns": [
+     "job/delivery_requests-O2-S2",
+     "job/transport_system-4472"
+    ],
+    "window": {
+     "start": "2026-10-29T15:53:49.858756Z",
+     "end": "2026-10-29T15:56:36.858142Z"
+    },
+    "detected_at": "2026-10-29T15:52:42.858142Z",
+    "seen_at": "2026-10-29T15:52:44.556191+00:00"
+   }
+  ],
+  "core_incidents": [
+   {
+    "incident_id": "inc-deliveryRobot-deliveryRobot_1-1793289394",
+    "robot_urn": "robot/deliveryRobot-deliveryRobot_1",
+    "rmf_task_id": "auspex_check_2cda667cba69",
+    "job_urn": "job/delivery_requests-O2-S2",
+    "segment_urn": "segment/lift_1-lobby-L2",
+    "detected_at": "2026-10-29T15:56:34.620664Z",
+    "trigger": "blocked_status",
+    "stakes": {
+     "due_at": "2026-10-29T16:04:34.273939Z",
+     "slack_s": 346.47961,
+     "payload": "oxygen",
+     "precedence": "critical"
+    },
+    "status": "open",
+    "plan_id": null,
+    "outcome": null,
+    "report": null,
+    "context": {
+     "lift": "lift_1",
+     "lift_mode": "OFFLINE",
+     "fault_code": "E-17",
+     "lift_held_by": "fault/lift_1"
+    },
+    "seen_at": "2026-10-29T15:56:35.132499+00:00"
+   }
+  ],
+  "core_plans": [
+   {
+    "plan_id": "fl-lift-out-of-service-lift_1-155549",
+    "producer": "fast_lane",
+    "decision_latency_ms": 41.0,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "close_lanes",
+      "window": null,
+      "fleet_name": "tinyRobot",
+      "segment_urn": "segment/lift_1"
+     }
+    ],
+    "rationale": "Playbook lift-out-of-service: lift_1 reported OFFLINE E-17 by the building's lift monitoring; robots kept out of it until it is back in service.",
+    "created_at": "2026-10-29T15:55:49.385775+00:00"
+   },
+   {
+    "plan_id": "ag-fault-lift_1-155549-155614",
+    "producer": "agent",
+    "decision_latency_ms": 21452.5,
+    "llm": {
+     "models": [
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "nvidia/nemotron-3-super-120b-a12b"
+     ],
+     "calls": 3,
+     "tokens": 4264,
+     "llm_ms": 18643,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "notify",
+      "window": null,
+      "job_urn": "job/delivery_requests-O2-S2",
+      "message": "Your oxygen: on its way, new ETA 16:00.",
+      "new_eta": "2026-10-29T16:00:02.268179Z",
+      "recipient_urn": "person/staff-alex"
+     }
+    ],
+    "rationale": "[nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B, nvidia/nemotron-3-super-120b-a12b] Lift lift_1 OFFLINE E-17: expected outage 120 s (Evidence shows expected recovery time of 120 seconds and no manual reset required for fault E-17.) All options meet the deadline (robot_eta before due_at, lateness 0). The wait-1 option requires zero interventions (no actions) while others need lane closures, replanning, or handover steps, increasing complexity. Since the outage does not require a technician (needs_technician: false), waiting is acceptable and yields the lowest score [0,0,0,0]. Evidence: outage estimate of 120\u202fs with hash a87ab4fc7310f70616448ed5c9b46d1c6b7f82ffa922125057ef2d83211d8ee3.",
+    "created_at": "2026-10-29T15:56:14.378916+00:00"
+   },
+   {
+    "plan_id": "fl-notify-stalled-delivery-inc-deliveryRobot-deliveryRobot_1-1793289394-155634",
+    "producer": "fast_lane",
+    "decision_latency_ms": 23.0,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "notify",
+      "window": null,
+      "job_urn": "job/delivery_requests-O2-S2",
+      "message": "Your delivery's robot has stopped (blocked_status); Auspex is working on it.",
+      "new_eta": "2026-10-29T15:58:47.794329Z",
+      "recipient_urn": "person/staff-alex"
+     }
+    ],
+    "rationale": "Playbook notify-stalled-delivery: blocked_status on a critical delivery; requester told.",
+    "created_at": "2026-10-29T15:56:34.640258+00:00"
+   },
+   {
+    "plan_id": "fl-lift-out-of-service-lift_1-reopen-155749",
+    "producer": "fast_lane",
+    "decision_latency_ms": 52.7,
+    "llm": {
+     "models": [],
+     "calls": 0,
+     "tokens": 0,
+     "llm_ms": 0,
+     "repaired": 0,
+     "invalid": 0
+    },
+    "status": "completed",
+    "verdict": "ALLOW",
+    "rule_ids": [],
+    "actions": [
+     {
+      "action": "open_lanes",
+      "window": null,
+      "fleet_name": "tinyRobot",
+      "segment_urn": "segment/lift_1"
+     }
+    ],
+    "rationale": "Playbook lift-out-of-service: lift_1 back in service; lanes Auspex closed reopened.",
+    "created_at": "2026-10-29T15:57:49.918646+00:00"
+   }
+  ],
+  "core_reports": [],
+  "core_providers": {
+   "config": "C",
+   "llm_provider": "tokenfactory",
+   "search_provider": "tavily"
+  },
+  "core_jobs": {
+   "job/delivery_requests-O2-S2": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4472": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S1": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-4471": {
+    "destination": null,
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/delivery_requests-O2-S3": {
+    "destination": "zone/ward-1a-bed-12",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-5001": {
+    "destination": "zone/ed-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   },
+   "job/transport_system-5002": {
+    "destination": "zone/imaging-L1",
+    "inferred_fields": [],
+    "inference_confidence": null
+   }
+  },
+  "core_interpretations": []
+ },
+ "checks": [
+  {
+   "ok": true,
+   "check": "plan with ['notify']  without ['cancel_task', 'close_lanes', 'submit_task'] (agent) applied and verified: ['ag-fault-lift_1-155549-155614'], expected True (wait for lift_1 (E-17 recovers by itself), others kept away, Alex told the ETA)"
+  },
+  {
+   "ok": true,
+   "check": "O2-S2 delivered 10:35:56 (due 10:40:30); on time = True, expected True"
+  },
+  {
+   "ok": true,
+   "check": "incident reports written: 0 (0 possible causes, none confirmed), expected None"
+  }
+ ]
+}

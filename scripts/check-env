@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Check tools and configuration. Prints no secret values.
+source "$(dirname "$0")/_lib.sh"
+need uv "run scripts/bootstrap"
+need docker "install Docker Engine inside WSL2"
+docker compose version >/dev/null 2>&1 || die "docker compose plugin missing"
+docker info >/dev/null 2>&1 || die "cannot reach the Docker daemon (sudo systemctl start docker?)"
+[[ -f .env ]] || die ".env missing: cp .env.example .env"
+uv run --frozen python -m auspex.core.config
+uv run --frozen python -m auspex.policy.loader
