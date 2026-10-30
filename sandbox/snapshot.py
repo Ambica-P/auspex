@@ -2,8 +2,9 @@
 script: python -m sandbox.snapshot [web/public/replays/s1-C.json] -> sandbox/snapshots/s1.json.
 
 The snapshot is the world at 10:28:00 on the scenario clock, when job 4471 goes Responding:
-where each robot was and which task it was doing (from the recording), the lifts' modes and
-closed lanes, and the source records of Alex's oxygen request and of job 4471 (from the
+where each robot was and which task it was doing (from the recording), the lifts' modes, the
+lane closures from before the run (not those Auspex made), and the source records of Alex's
+oxygen request and of job 4471 (from the
 scenario script). The sandbox recomputes everything else (Robot A's route, every claim, the
 conflict, the options, the gate) with the core's own code."""
 
@@ -48,6 +49,10 @@ def build(replay_path: Path = DEFAULT_REPLAY) -> dict[str, Any]:
         )
     states = [s for s in replay["map_state"] if s["t"] <= t_ms] or replay["map_state"][:1]
     state = states[-1]["v"] if states else {"closed": {}, "lifts": {}}
+    # Lane closures as they were before the run, not the ones Auspex itself made during the
+    # recorded run (in C it closed lift_25 to Robot A's fleet at about 10:27:36, so the 10:28
+    # world would already contain the answer and the sandbox would find no conflict).
+    before = replay["map_state"][0]["v"] if replay["map_state"] else {"closed": {}}
     records = {e["record"]["system"]: e["record"] for e in scenario["events"] if "record" in e}
     task_spec = scenario["robot_tasks"][0]
     robot = next(
@@ -67,7 +72,7 @@ def build(replay_path: Path = DEFAULT_REPLAY) -> dict[str, Any]:
         "now": AT,
         "source": {"replay": replay_path.name, "recorded_at": meta.get("recorded_at")},
         "fleets": fleets,
-        "closed": state.get("closed", {}),
+        "closed": before.get("closed", {}),
         "lifts": state.get("lifts", {}),
         "robot_job": {
             "record": records["delivery_requests"],

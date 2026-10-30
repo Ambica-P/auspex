@@ -19,11 +19,15 @@ class SandboxSettings(BaseSettings):
     sandbox_allowed_origin: str | None = None  # the replay site's origin (CORS)
     sandbox_llm: Literal["tokenfactory", "fake"] = "tokenfactory"
     sandbox_cache_size: int = Field(default=512, ge=0)
-    # Spending cap for the sandbox's model calls, in US dollars, for the life of the container
-    # (0 disables the cap). Prices per million tokens come from the Nebius console.
+    # Spending cap for the sandbox's model calls, in US dollars: lifetime total in Upstash when
+    # configured, else for the life of the container (0 disables the cap). Prices per million
+    # tokens come from the Nebius console.
     sandbox_budget_usd: float = Field(default=0.02, ge=0)
     sandbox_price_in_per_mtok: float | None = Field(default=None, gt=0)
     sandbox_price_out_per_mtok: float | None = Field(default=None, gt=0)
+    # Persistent usage counters (Upstash Redis REST). Unset: counters live in memory.
+    upstash_redis_rest_url: AnyHttpUrl | None = None
+    upstash_redis_rest_token: SecretStr | None = None
     nebius_api_base: AnyHttpUrl | None = None
     nebius_api_key: SecretStr | None = None
     model_triage: str | None = None
@@ -31,6 +35,10 @@ class SandboxSettings(BaseSettings):
 
     @model_validator(mode="after")
     def _tokenfactory_complete(self) -> Self:
+        if bool(self.upstash_redis_rest_url) != bool(self.upstash_redis_rest_token):
+            raise ValueError(
+                "set both UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN, or neither"
+            )
         if self.sandbox_llm == "tokenfactory" and not (
             self.nebius_api_base and self.nebius_api_key and self.model_triage
         ):

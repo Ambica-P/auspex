@@ -4,6 +4,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 30;
 
 const TIMEOUT_MS = 30_000;
 const MAX_BODY = 4_096;

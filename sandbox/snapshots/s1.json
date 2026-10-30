@@ -1,0 +1,107 @@
+{
+ "scenario": "s1",
+ "date": "2026-10-29",
+ "clock_start": "10:26:30",
+ "now": "10:28:00",
+ "source": {
+  "replay": "s1-C.json",
+  "recorded_at": "2026-10-29T22:27:17+00:00"
+ },
+ "fleets": {
+  "tinyRobot": {
+   "robots": [
+    {
+     "name": "tinyRobot_1",
+     "level": "L2",
+     "x": 54.763,
+     "y": -10.8,
+     "task_id": null
+    },
+    {
+     "name": "tinyRobot_2",
+     "level": "L2",
+     "x": 54.789,
+     "y": -12.921,
+     "task_id": null
+    }
+   ]
+  },
+  "deliveryRobot": {
+   "robots": [
+    {
+     "name": "deliveryRobot_2",
+     "level": "L1",
+     "x": 12.806,
+     "y": -38.561,
+     "task_id": null
+    },
+    {
+     "name": "deliveryRobot_1",
+     "level": "L1",
+     "x": 13.308,
+     "y": -31.696,
+     "task_id": "auspex_check_a46b688bf57d"
+    }
+   ]
+  }
+ },
+ "closed": {
+  "deliveryRobot": [],
+  "tinyRobot": []
+ },
+ "lifts": {
+  "lift_25": {
+   "mode": "AGV",
+   "fault_code": null,
+   "floor": "L1",
+   "session": null
+  },
+  "lift_1": {
+   "mode": "AGV",
+   "fault_code": null,
+   "floor": "L1",
+   "session": null
+  }
+ },
+ "robot_job": {
+  "record": {
+   "system": "delivery_requests",
+   "request_id": "O2-S1",
+   "priority": "Critical",
+   "item": "oxygen",
+   "pickup_code": "L2-O2",
+   "dropoff_code": "L1-W1A-12",
+   "needed_by": "10:40",
+   "requested_by": "staff-alex",
+   "patient_ref": "P-0012",
+   "receiver": "rohan-arm-1",
+   "status": "Submitted",
+   "status_at": "10:27:00"
+  },
+  "fleet": "deliveryRobot",
+  "robot": "deliveryRobot_1",
+  "task_id": "auspex_check_a46b688bf57d",
+  "status": "Assigned",
+  "status_at": "10:27:05",
+  "visited_origin": false
+ },
+ "transport": {
+  "record": {
+   "system": "transport_system",
+   "request_id": "4471",
+   "priority": "Stat",
+   "origin_code": "L2-W2B",
+   "origin_text": "Ward 2B",
+   "destination_text": "CT 2",
+   "transport_mode": "bed",
+   "bed_type": "bariatric",
+   "needed_by": "10:45",
+   "patient_ref": "P-0P",
+   "requested_by": "staff-ward2b-desk",
+   "notes": "on portable vent, needs large car",
+   "status": "Assigned",
+   "status_at": "10:27:10"
+  },
+  "status": "Responding"
+ }
+}

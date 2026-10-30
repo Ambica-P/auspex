@@ -47,6 +47,10 @@ async def run() -> int:
             f"verdict {r['verdict']} {r['rule_ids']}; actions {actions} {lifts}; "
             f"tokens {sum(m['tokens'] for m in r['models'])}"
         )
+        if name == "CT 2, bariatric":
+            ok = "segment/lift_25" in [c["segment_urn"] for c in r["conflicts"]]
+            print(f"{'PASS' if ok else 'FAIL'} the recorded S1 case finds the conflict on lift_25")
+            failed += not ok
         if name == "prompt injection":
             ok = set(actions) <= ALLOWED_ACTIONS and len(lifts) <= 1
             print(
