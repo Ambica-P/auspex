@@ -4,7 +4,7 @@
 
 Auspex is a coordination layer above [Open-RMF](https://www.open-rmf.org/). It reads what a hospital already knows about who is moving where, and how urgently. It turns that into live, precedence-aware decisions for the autonomous mobile robot (AMR) fleet. It uses NVIDIA Nemotron on Nebius Token Factory for the cases where that information is ambiguous, incomplete or conflicting.
 
-- **Judge site:** `web/` (recorded runs, Playground, benchmark, audit ledger), deployed on Vercel; the link is in the submission
+- **Live site: [auspex-theta.vercel.app](https://auspex-theta.vercel.app/)**: recorded runs on a 2D map, a live Nemotron Playground, the benchmark and a verifiable audit ledger
 - **Track:** Nebius x NVIDIA Global AI Hackathon, Physical AI
 
 > Open-RMF moves the robots. Auspex makes sure they move around the people who matter most.
@@ -66,9 +66,9 @@ Containment, the fast lane, is deterministic: no LLM or search call, with a 2-se
 | **Nemotron Super** `nvidia/nemotron-3-super-120b-a12b` | `agent.py` (`outage`, `choose`, `tradeoff`) | Weighs waiting against rerouting or handover under uncertainty. Proposes composite options when no template meets every deadline. Explains plans that go to a person. |
 | **Nebius Token Factory** | `src/auspex/agent/llm.py` | OpenAI-compatible endpoint for both models: JSON-schema structured output, one repair retry, then it fails closed to the deterministic best option. |
 | **Tavily** | `src/auspex/evidence/` | When a lift reports a fault code, Auspex searches the lift vendor's advisories, restricted to the vendor's domain. When search finds nothing, it reads the vendor's bulletin index with Tavily Extract. Results are untrusted: they are kept separate from the instructions, never followed, and only validated typed fields reach a plan. |
-| **Nebius Serverless Endpoint** (optional) | `sandbox/Dockerfile` | Hosts the Playground backend: real Nemotron Nano on a recorded S1 snapshot, with no ROS or database. |
+| **Playground backend** | `sandbox/` | Calls Nemotron Nano on Token Factory live from the judge site, on a recorded S1 snapshot, with no ROS or database. The container (`sandbox/Dockerfile`) runs on Render; usage counters are in Upstash Redis. |
 
-Nebius Serverless Jobs was cut for time, as the spec allows: the benchmark ran locally.
+Nebius Serverless Jobs was cut for time: the benchmark ran locally. The Playground container is hosted on Render rather than a Nebius Serverless Endpoint for the same reason; it runs unchanged on either.
 
 ## Scenarios
 
@@ -105,14 +105,16 @@ CORE (FastAPI, Python 3.12)                         ▼
         │ REST / SSE                         │ lane closures, replans, task API
   Ops console (ui/)                    Open-RMF ─▶ robots, doors, lifts
 
-Recorded runs ─▶ web/ (Next.js on Vercel) ──/api/playground──▶ sandbox/ (FastAPI + Nemotron Nano)
+Recorded runs ─▶ web/ (Next.js on Vercel) ──/api/playground──▶ sandbox/ (FastAPI on Render) ──▶ Nemotron Nano
+                                                                      └─ usage counters: Upstash Redis
 ```
 
 **Stack:**
 
 - Open-RMF on ROS 2 Kilted, with the `rmf_demos` clinic world.
 - Python 3.12: FastAPI, Pydantic v2, SQLAlchemy and Alembic on Postgres 16, structlog, the `openai` SDK (pointed at Token Factory), `tavily-python`, uv.
-- Next.js 16 and React 19 for the judge site; vanilla JS and SVG for the ops console.
+- Next.js 16 and React 19 for the judge site, on Vercel; vanilla JS and SVG for the ops console.
+- Playground backend: the same Python packages in a Docker container on Render, with Upstash Redis for usage counters.
 
 | Path | Contents |
 |---|---|
@@ -124,7 +126,7 @@ Recorded runs ─▶ web/ (Next.js on Vercel) ──/api/playground──▶ san
 | `bench/` | A/B/C benchmark report |
 | `ui/` | Ops console, served by the core at `/ui/` |
 | `web/` | Judge site: simulation replays, Playground, benchmark, audit ledger |
-| `sandbox/` | Playground backend for a Nebius Serverless Endpoint |
+| `sandbox/` | Playground backend (FastAPI container): S1 snapshot, limits, usage counters |
 
 ---
 
@@ -258,15 +260,19 @@ scripts/run-sandbox             # http://127.0.0.1:8095
 echo "SANDBOX_URL=http://127.0.0.1:8095" > web/.env.local
 ```
 
-Real Nemotron in the Playground needs `SANDBOX_PRICE_IN_PER_MTOK` and `SANDBOX_PRICE_OUT_PER_MTOK` in `.env`: Nano's prices from the Nebius console. They enforce the spend cap `SANDBOX_BUDGET_USD`. Use `--fake` to run without a key.
+Real Nemotron in the Playground needs `SANDBOX_PRICE_IN_PER_MTOK` and `SANDBOX_PRICE_OUT_PER_MTOK` in `.env`: Nano's prices from the Nebius console. They enforce the spend cap `SANDBOX_BUDGET_USD`. Use `--fake` to run without a key. Optionally set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` to keep the counters in Upstash (otherwise they live in memory). Local runs and the deployed backend then share the same budget.
 
 ### Deploying
 
 - **Site:** import the repository into Vercel with **Root Directory `web`**. Set `SANDBOX_URL` (server-side only) to the sandbox's URL, or leave it unset; the Playground then shows the recorded answer.
-- **Sandbox:** build `sandbox/Dockerfile` from the repo root and run it as a Nebius Serverless Endpoint, with:
-  - its own Token Factory key;
-  - `SANDBOX_ENABLED=true`;
-  - the daily cap, the per-IP rate limit and the budget variables from `.env.example`.
+- **Playground backend (Render, free plan):** New → Web Service from the repo, language **Docker**, Dockerfile path `sandbox/Dockerfile`, build context `.`, health check path `/health`. Environment variables (values without `$`):
+  - `PORT=8000`, `SANDBOX_ENABLED=true`;
+  - `NEBIUS_API_BASE`, `MODEL_TRIAGE`, and a Token Factory key used **only** by the sandbox as `NEBIUS_API_KEY`;
+  - `SANDBOX_BUDGET_USD`, `SANDBOX_PRICE_IN_PER_MTOK`, `SANDBOX_PRICE_OUT_PER_MTOK`, `SANDBOX_DAILY_CAP`, `SANDBOX_RATE_PER_IP_PER_MIN`;
+  - `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` from a free Upstash Redis database, so the spend and daily counters survive Render restarting a sleeping service.
+
+  Then set `SANDBOX_URL` in Vercel to the Render URL and redeploy. The same container also runs on a Nebius Serverless Endpoint or any Docker host.
+- **Limits:** every Nemotron call reserves its estimated cost against `SANDBOX_BUDGET_USD` first. When the budget, the daily cap or the per-IP rate is reached, or the counter store can't be reached, no model call is made and the site shows the recorded S1 decision with the reason.
 
 ---
 
@@ -277,7 +283,7 @@ Real Nemotron in the Playground needs `SANDBOX_PRICE_IN_PER_MTOK` and `SANDBOX_P
 - Only tested on WSL2, Ubuntu 24.04, ROS 2 Kilted and `ros-kilted-rmf-dev` 0.2.0, in the `rmf_demos` clinic world.
 - The robot ETA model is approximate. Robot claims are widened (20 s plus 15% of the lead time) so lift conflicts aren't missed.
 - Nemotron runs with its reasoning mode off, to keep structured answers within budget. "Technician required" is also enforced from the vendor bulletin's typed `requires_manual_reset` field rather than left to the model.
-- The Playground's per-IP rate limit trusts the forwarded client address. The daily cap and the spend budget apply regardless.
+- The Playground's per-IP rate limit is kept in memory and trusts the forwarded client address; the spend budget and the daily cap are persistent (Upstash) and apply regardless. On Render's free plan the first request after an idle period can time out while the service wakes; the site then shows the recorded answer.
 - The Token Factory Serverless model IDs above are scheduled for replacement on 9 Nov 2026 (`nvidia/Nemotron-3_5-Lightning`, `nvidia/Nemotron-3.5-Super-VL`). Model IDs are configuration, not code.
 - Nebius Serverless Jobs for the benchmark batch was not built.
 
